@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhaka College International Hall | Student Database & Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0F4C81;
+      --primary-dark: #0A3258;
+      --primary-light: #EBF3FA;
+      --secondary: #D97706;
+      --success: #10B981;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --badge-room-bg: #E0F2FE;
+      --badge-room-txt: #0369A1;
+      --badge-roll-bg: #FEF3C7;
+      --badge-roll-txt: #92400E;
+      --badge-pg-bg: #F3E8FF;
+      --badge-pg-txt: #7E22CE;
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    }
+    
+    html.dark {
+      --primary: #38BDF8;
+      --primary-dark: #0284C7;
+      --primary-light: #0C4A6E;
+      --bg: #0B1120;
+      --surface: #1E293B;
+      --border: #334155;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+      --badge-room-bg: #082F49;
+      --badge-room-txt: #7DD3FC;
+      --badge-roll-bg: #451A03;
+      --badge-roll-txt: #FCD34D;
+      --badge-pg-bg: #3B0764;
+      --badge-pg-txt: #D8B4FE;
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.4);
+      --card-shadow-hover: 0 10px 20px -3px rgba(0,0,0,0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', 'Hind Siliguri', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navbar */
+    .navbar {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226,232,240,0.7);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    html.dark .navbar {
+      background: rgba(30,41,59,0.88);
+      border-bottom: 1px solid rgba(51,65,85,0.7);
+    }
+    .nav-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .nav-brand img {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: white;
+      padding: 3px;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 12px rgba(15,76,129,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .nav-brand:hover img {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(15,76,129,0.35);
+    }
+    .nav-brand-text h1 {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+    }
+    .nav-brand-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .nav-brand-text .motto {
+      font-size: 10px;
+      color: var(--secondary);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+    .nav-link.active {
+      color: white !important;
+      background: var(--primary) !important;
+      box-shadow: 0 2px 8px rgba(15,76,129,0.25);
+    }
+    .theme-toggle-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    /* Password Lock Screen Overlay */
+    #authOverlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 25, 47, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    #authOverlay.unlocked {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 30px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+      animation: authCardPop 0.3s ease-out;
+    }
+    @keyframes authCardPop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .auth-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 16px;
+      object-fit: contain;
+      background: white;
+      padding: 4px;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 16px rgba(15,76,129,0.25);
+      margin-bottom: 14px;
+    }
+    .auth-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .auth-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .auth-input-wrap {
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .auth-input-wrap i.auth-lock-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .auth-input {
+      width: 100%;
+      padding: 12px 42px 12px 40px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-align: center;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .auth-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(15,76,129,0.15);
+      background: var(--surface);
+    }
+    .auth-input.error {
+      border-color: #EF4444;
+      animation: shake 0.3s;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .auth-toggle-pwd {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .auth-err-msg {
+      color: #EF4444;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: none;
+    }
+    .auth-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .auth-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Main Container */
+    .main-content {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Compact Page Header */
+    .portal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .portal-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .portal-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .portal-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .portal-badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .portal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    /* Primary Mode Navigation Bar */
+    .view-mode-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      background: var(--surface);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      flex-wrap: wrap;
+    }
+    .mode-tab-btn {
+      flex: 1;
+      min-width: 140px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .mode-tab-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .mode-tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 3px 10px rgba(15,76,129,0.22);
+    }
+
+    /* Control Panel (Matching Picture) */
+    .control-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--card-shadow);
+    }
+    .search-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .search-input-wrap {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-input-wrap i.search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      padding: 11px 40px 11px 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13.5px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15,76,129,0.12);
+      background: var(--surface);
+    }
+    .clear-search-btn {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .clear-search-btn:hover {
+      color: var(--text);
+    }
+
+    .filters-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border);
+    }
+    .select-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    .export-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-sheets { background: #0F9D58; color: white; }
+    .btn-sheets:hover { background: #0B8043; transform: translateY(-1px); }
+    .btn-excel { background: #107C41; color: white; }
+    .btn-excel:hover { background: #0B5A2F; transform: translateY(-1px); }
+    .btn-outline { background: var(--surface); border-color: var(--border); color: var(--text); }
+    .btn-outline:hover { background: var(--bg); border-color: var(--border-dark); }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    /* Category Badges for Column Visibility */
+    .col-categories {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .cat-btn {
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cat-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .cat-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 6px rgba(15,76,129,0.2);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge-room { background: var(--badge-room-bg); color: var(--badge-room-txt); }
+    .badge-roll { background: var(--badge-roll-bg); color: var(--badge-roll-txt); font-family: monospace; font-size: 12px; }
+    .badge-pg { background: var(--badge-pg-bg); color: var(--badge-pg-txt); font-weight: 800; }
+    .badge-group { background: #DCFCE7; color: #166534; }
+    .badge-blood { background: #FEE2E2; color: #991B1B; }
+
+    /* 1. SPREADSHEET TABLE VIEW */
+    .table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .table-container {
+      overflow-x: auto;
+      max-height: 700px;
+      position: relative;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 12.5px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    thead tr.super-header th {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    th.grp-basic { background: #1B365D; color: #93C5FD; }
+    th.grp-father { background: #312E81; color: #C7D2FE; }
+    th.grp-mother { background: #4C1D95; color: #DDD6FE; }
+    th.grp-address { background: #064E3B; color: #A7F3D0; }
+    th.grp-academic { background: #78350F; color: #FDE68A; }
+    th.grp-docs { background: #881337; color: #FECDD3; }
+
+    thead tr.sub-header th {
+      background: var(--primary-dark);
+      color: white;
+      padding: 10px 12px;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 2px solid rgba(0,0,0,0.15);
+    }
+    thead tr.sub-header th:hover { background: #072542; }
+    thead tr.sub-header th i { margin-left: 4px; font-size: 10px; opacity: 0.7; }
+    
+    tbody tr { transition: background 0.15s; cursor: pointer; }
+    tbody tr:nth-child(even) { background: rgba(0,0,0,0.015); }
+    html.dark tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+    tbody tr:hover { background: var(--primary-light); transform: scale(1.002); }
+    td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+
+    /* FROZEN STICKY COLUMNS - EXACT RIGID PIXEL OFFSETS (ZERO GLITCH) */
+    th.sticky-col, td.sticky-col { position: sticky; background: inherit; }
+    th.col-sl, td.col-sl { left: 0; z-index: 15; width: 44px; min-width: 44px; max-width: 44px; text-align: center; }
+    th.col-photo, td.col-photo { left: 44px; z-index: 15; width: 48px; min-width: 48px; max-width: 48px; text-align: center; }
+    th.col-name, td.col-name { left: 92px; z-index: 15; width: 180px; min-width: 180px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    th.col-roll, td.col-roll { left: 272px; z-index: 15; width: 75px; min-width: 75px; max-width: 75px; text-align: center; box-shadow: 4px 0 8px -2px rgba(0,0,0,0.12); border-right: 2px solid var(--border); }
+    thead th.sticky-col { z-index: 30; background: var(--primary-dark); }
+
+    .student-thumb {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+      vertical-align: middle;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .student-thumb:hover {
+      transform: scale(1.3);
+      z-index: 100;
+      position: relative;
+    }
+
+    /* 2. SINGLE STUDENT DOSSIER VIEW */
+    .single-view-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .student-selector-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: var(--card-shadow);
+    }
+    .student-select-picker {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 320px;
+      outline: none;
+      cursor: pointer;
+    }
+    .dossier-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow-hover);
+    }
+    .dossier-hero {
+      background: linear-gradient(135deg, #0F4C81, #1B365D);
+      color: white;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .dossier-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 20px;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    }
+    .dossier-hero-info h2 { font-size: 24px; font-weight: 800; line-height: 1.2; }
+    .dossier-hero-info .dossier-bn-name { font-size: 17px; opacity: 0.9; margin-top: 4px; }
+    .dossier-badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+
+    .dossier-body {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .info-card-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .info-card-title {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-card-title.blue { color: #0284C7; }
+    .info-card-title.indigo { color: #4F46E5; }
+    .info-card-title.purple { color: #9333EA; }
+    .info-card-title.amber { color: #D97706; }
+    .info-card-title.emerald { color: #059669; }
+
+    .info-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .info-item-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .info-item-val {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text);
+      word-break: break-word;
+    }
+    .income-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .doc-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .doc-action-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* 3. CHARTS & ANALYTICS VIEW */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+    }
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .chart-card-header {
+      margin-bottom: 16px;
+    }
+    .chart-card-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chart-card-header p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .chart-container {
+      position: relative;
+      height: 260px;
+      width: 100%;
+    }
+
+    /* Fallback Pure CSS Bars */
+    .css-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .css-bar-lbl { width: 120px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .css-bar-outer { flex: 1; background: var(--bg); border-radius: 6px; overflow: hidden; height: 20px; border: 1px solid var(--border); }
+    .css-bar-inner { height: 100%; border-radius: 5px; display: flex; align-items: center; padding-left: 8px; color: white; font-weight: 700; font-size: 11px; }
+
+    /* 4. CARDS GRID VIEW */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .student-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.25s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .student-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--primary);
+    }
+    .card-top {
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to bottom, var(--primary-light), transparent);
+    }
+    .card-avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 2px solid var(--surface);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .card-header-info h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .card-header-info .name-bn { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .card-badges { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .card-body {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      font-size: 13px;
+    }
+    .card-row { display: flex; justify-content: space-between; align-items: center; }
+    .card-label { color: var(--text-muted); font-size: 12px; }
+    .card-value { font-weight: 600; color: var(--text); }
+    .card-footer {
+      padding: 12px 20px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10B981;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 200;
+    }
+    .toast.show { display: flex; animation: toastIn 0.2s ease-out; }
+    @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      .navbar, .control-panel, .view-mode-nav, .student-selector-bar, .col-categories, footer { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .dossier-card { box-shadow: none !important; border: 1px solid #ccc !important; }
+      .dossier-hero { background: #0F4C81 !important; color: white !important; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Security Password Lock Screen (PIN: 9874) -->
+  <div id="authOverlay">
+    <div class="auth-card">
+      <img src="images/logo.png" alt="Dhaka College Logo" class="auth-logo" onerror="this.src='images/favicon.png'">
+      <h2 class="auth-title">Dhaka College Student Database</h2>
+      <p class="auth-desc">HSC Session 2025-2026 &bull; Restricted Portal<br>প্রবেশ করতে ৪ ডিজিটের পাসওয়ার্ড দিন:</p>
+      
+      <div class="auth-input-wrap">
+        <i class="fa-solid fa-lock auth-lock-icon"></i>
+        <input type="password" id="pinInput" class="auth-input" placeholder="পাসওয়ার্ড দিন" maxlength="10" autocomplete="off">
+        <button type="button" class="auth-toggle-pwd" onclick="togglePinVisibility()" title="Show/Hide PIN">
+          <i class="fa-solid fa-eye" id="pwdToggleIcon"></i>
+        </button>
+      </div>
+      <div id="authErrMsg" class="auth-err-msg"></div>
+      <button class="auth-btn" onclick="submitPin()">
+        <i class="fa-solid fa-key"></i> Unlock Portal (প্রবেশ করুন)
+      </button>
+    </div>
+  </div>
+
+  <!-- Navbar with 4 Main Views in Menu -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../hall-main/index.html" class="nav-brand">
+        <img src="images/logo.png" alt="Dhaka College Logo" onerror="this.src='images/favicon.png'">
+        <div class="nav-brand-text">
+          <h1>Dhaka College</h1>
+          <p>HSC Session 2025-2026 Student Database</p>
+          <div class="motto">Est. 1841 &bull; Empowering Excellence</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <button class="nav-link active" id="tabTable" onclick="setMainView('table')">
+          <i class="fa-solid fa-table"></i> 📊 Spreadsheet View
+        </button>
+        <button class="nav-link" id="tabSingle" onclick="setMainView('single')">
+          <i class="fa-solid fa-address-card"></i> 👤 Single Student Profile
+        </button>
+        <button class="nav-link" id="tabCharts" onclick="setMainView('charts')">
+          <i class="fa-solid fa-chart-pie"></i> 📈 Visual Charts & Stats
+        </button>
+        <button class="nav-link" id="tabCards" onclick="setMainView('cards')">
+          <i class="fa-solid fa-grip"></i> 🗂️ Profile Cards
+        </button>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button class="theme-toggle-btn" id="themeToggle" title="Toggle Dark / Light Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="theme-toggle-btn" onclick="lockPortal()" title="Lock Portal with Password">
+          <i class="fa-solid fa-lock"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Compact Page Header Bar -->
+    <div class="portal-header">
+      <div class="portal-title-wrap">
+        <div>
+          <h2 class="portal-title"><i class="fa-solid fa-graduation-cap" style="color:var(--primary);"></i> Student Records & Admission Database</h2>
+          <p class="portal-subtitle">HSC Session 2025-2026 &bull; Verified Records from Official Admission Applications & Payment Receipts</p>
+        </div>
+      </div>
+      <div class="portal-badges">
+        <span class="portal-badge"><i class="fa-solid fa-users"></i> 28 Students</span>
+        <span class="portal-badge"><i class="fa-solid fa-flask"></i> Science / Hum / BS</span>
+        <span class="portal-badge" style="color:#10B981;"><i class="fa-solid fa-circle-check"></i> 100% Verified</span>
+      </div>
+    </div>
+
+    <!-- Redesigned Control Panel (Matching User Screenshot) -->
+    <div class="control-panel" id="controlPanel">
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Instant Search by name, roll, section, practical group (A1/A2), mobile, NID, father, mother, district...">
+          <button id="clearSearchBtn" class="clear-search-btn" onclick="clearSearch()" title="Clear search" style="display:none;">&times;</button>
+        </div>
+      </div>
+
+      <div class="filters-row">
+        <div class="select-group">
+          <select id="filterGroup" class="filter-select" onchange="applyFilters()">
+            <option value="">All Groups (3)</option>
+            <option value="Science">Science (25)</option>
+            <option value="Humanities">Humanities (2)</option>
+            <option value="Business Studies">Business Studies (1)</option>
+          </select>
+          <select id="filterSection" class="filter-select" onchange="applyFilters()">
+            <option value="">All Sections</option>
+            <option value="Section A">Section A (Roll 1-150)</option>
+            <option value="Section B">Section B (Roll 151-300)</option>
+            <option value="Section C">Section C (Roll 301-450)</option>
+            <option value="Section D">Section D (Roll 451-600)</option>
+            <option value="Section E">Section E (Roll 601-750)</option>
+            <option value="Section F">Section F (Roll 751-900)</option>
+          </select>
+          <select id="filterPractical" class="filter-select" onchange="applyFilters()">
+            <option value="">All Practical Groups</option>
+            <option value="A1">A1 (Roll 1-75)</option>
+            <option value="A2">A2 (Roll 76-150)</option>
+            <option value="B1">B1 (Roll 151-225)</option>
+            <option value="B2">B2 (Roll 226-300)</option>
+            <option value="C1">C1 (Roll 301-375)</option>
+            <option value="C2">C2 (Roll 376-450)</option>
+            <option value="D1">D1 (Roll 451-525)</option>
+            <option value="D2">D2 (Roll 526-600)</option>
+            <option value="E1">E1 (Roll 601-675)</option>
+            <option value="E2">E2 (Roll 676-750)</option>
+            <option value="F1">F1 (Roll 751-825)</option>
+            <option value="F2">F2 (Roll 826-900)</option>
+          </select>
+          <select id="filterBlood" class="filter-select" onchange="applyFilters()">
+            <option value="">All Blood Groups</option>
+            <option value="A+">A+</option>
+            <option value="B+">B+</option>
+            <option value="O+">O+</option>
+            <option value="AB+">AB+</option>
+          </select>
+          <select id="filterDistrict" class="filter-select" onchange="applyFilters()">
+            <option value="">All Districts</option>
+          </select>
+        </div>
+
+        <div class="export-buttons">
+          <button class="btn btn-sheets" onclick="copyForGoogleSheets()" title="Copy all data formatted for Google Sheets">
+            <i class="fa-solid fa-copy"></i> Copy for Google Sheets
+          </button>
+          <a href="Dhaka_College_Students_Full_Info.xlsx" class="btn btn-excel" download title="Download Excel Workbook">
+            <i class="fa-solid fa-file-excel"></i> Excel (.xlsx)
+          </a>
+          <a href="Dhaka_College_Students_Full_Info.csv" class="btn btn-outline" download title="Download CSV File">
+            <i class="fa-solid fa-file-csv"></i> CSV (.csv)
+          </a>
+          <button class="btn btn-outline" onclick="window.print()" title="Print this view">
+            <i class="fa-solid fa-print"></i> Print
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 1: SPREADSHEET TABLE VIEW ==================== -->
+    <div id="viewTableSection">
+      <div class="col-categories">
+        <button class="cat-btn active" onclick="setColumnCategory('all')">🌐 All Columns (36)</button>
+        <button class="cat-btn" onclick="setColumnCategory('basic')">👤 Student Basic & Groups</button>
+        <button class="cat-btn" onclick="setColumnCategory('father')">👨 Father's Info & Income</button>
+        <button class="cat-btn" onclick="setColumnCategory('mother')">👩 Mother's Info</button>
+        <button class="cat-btn" onclick="setColumnCategory('academic')">🎓 SSC & Subjects</button>
+        <button class="cat-btn" onclick="setColumnCategory('address')">📍 Address & District</button>
+        <button class="cat-btn" onclick="setColumnCategory('docs')">📄 Documents (PDFs)</button>
+      </div>
+
+      <div class="table-card">
+        <div class="table-container">
+          <table id="mainTable">
+            <thead>
+              <tr class="super-header">
+                <th colspan="4" class="grp-core">Core Identity</th>
+                <th colspan="8" class="col-grp-basic grp-basic">Academic & Student Details</th>
+                <th colspan="7" class="col-grp-father grp-father">Father's Information & Income</th>
+                <th colspan="4" class="col-grp-mother grp-mother">Mother's Information</th>
+                <th colspan="4" class="col-grp-address grp-address">Guardian & Addresses</th>
+                <th colspan="7" class="col-grp-academic grp-academic">SSC Records & Subjects</th>
+                <th colspan="2" class="col-grp-docs grp-docs">Documents</th>
+              </tr>
+              <tr class="sub-header">
+                <th class="sticky-col col-sl" onclick="sortTable('sl_no')">Sl</th>
+                <th class="sticky-col col-photo">Photo</th>
+                <th class="sticky-col col-name" onclick="sortTable('name_en')">Student Name <i class="fa-solid fa-sort"></i></th>
+                <th class="sticky-col col-roll" onclick="sortTable('short_roll')">Roll <i class="fa-solid fa-sort"></i></th>
+                
+                <th class="col-grp-basic" onclick="sortTable('name_bn')">নাম (বাংলা)</th>
+                <th class="col-grp-basic" onclick="sortTable('group')">Group</th>
+                <th class="col-grp-basic" onclick="sortTable('section')">Section</th>
+                <th class="col-grp-basic" onclick="sortTable('practical_group')">Practical Group</th>
+                <th class="col-grp-basic" onclick="sortTable('phone')">Student Mobile</th>
+                <th class="col-grp-basic" onclick="sortTable('nid')">Student NID</th>
+                <th class="col-grp-basic" onclick="sortTable('dob')">Birth Date</th>
+                <th class="col-grp-basic" onclick="sortTable('blood_group')">Blood</th>
+                
+                <th class="col-grp-father" onclick="sortTable('father_name_en')">Father's Name (EN)</th>
+                <th class="col-grp-father" onclick="sortTable('father_name_bn')">পিতার নাম (বাংলা)</th>
+                <th class="col-grp-father" onclick="sortTable('father_phone')">Father's Mobile</th>
+                <th class="col-grp-father" onclick="sortTable('father_nid')">Father's NID</th>
+                <th class="col-grp-father" onclick="sortTable('father_occ')">Occupation</th>
+                <th class="col-grp-father" onclick="sortTable('father_monthly_income')" style="color:#FEF08A;">মাসিক আয় (Monthly)</th>
+                <th class="col-grp-father" onclick="sortTable('father_annual_income')">বার্ষিক আয় (Annual)</th>
+                
+                <th class="col-grp-mother" onclick="sortTable('mother_name_en')">Mother's Name (EN)</th>
+                <th class="col-grp-mother" onclick="sortTable('mother_name_bn')">মাতার নাম (বাংলা)</th>
+                <th class="col-grp-mother" onclick="sortTable('mother_phone')">Mother's Mobile</th>
+                <th class="col-grp-mother" onclick="sortTable('mother_nid')">Mother's NID</th>
+                
+                <th class="col-grp-address">Local Guardian</th>
+                <th class="col-grp-address" onclick="sortTable('district')">District</th>
+                <th class="col-grp-address">Present Address</th>
+                <th class="col-grp-address">Permanent Address</th>
+                
+                <th class="col-grp-academic" onclick="sortTable('ssc_roll')">SSC Roll</th>
+                <th class="col-grp-academic" onclick="sortTable('ssc_reg_no')">SSC Reg No</th>
+                <th class="col-grp-academic" onclick="sortTable('ssc_board')">Board</th>
+                <th class="col-grp-academic" onclick="sortTable('ssc_gpa')">GPA</th>
+                <th class="col-grp-academic" onclick="sortTable('ssc_year')">Year</th>
+                <th class="col-grp-academic" style="color:#BBF7D0;">Elective Subject</th>
+                <th class="col-grp-academic" style="color:#BBF7D0;">4th Subject</th>
+                
+                <th class="col-grp-docs">Application PDF</th>
+                <th class="col-grp-docs">Receipt PDF</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 2: SINGLE STUDENT DOSSIER VIEW ==================== -->
+    <div id="viewSingleSection" style="display: none;" class="single-view-container">
+      <div class="student-selector-bar">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <label style="font-weight: 700; font-size: 13px; color: var(--text-muted);"><i class="fa-solid fa-user-check"></i> Select Student:</label>
+          <select id="singleStudentPicker" class="student-select-picker" onchange="selectSingleStudent(this.value)">
+          </select>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-outline" onclick="navigateSingleStudent(-1)"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+          <button class="btn btn-outline" onclick="navigateSingleStudent(1)">Next <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print This Profile</button>
+        </div>
+      </div>
+
+      <div class="dossier-card" id="singleDossierContent">
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 3: CHARTS & STATS VIEW ==================== -->
+    <div id="viewChartsSection" style="display: none;">
+      <div class="charts-grid">
+        
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <h3><i class="fa-solid fa-flask" style="color:#0284C7;"></i> Science Sections & Practical Groups</h3>
+            <p>150 students per section (A-F) & 75 students per practical group (A1, A2...)</p>
+          </div>
+          <div class="chart-container" id="chartSectionsContainer">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <h3><i class="fa-solid fa-droplet" style="color:#DC2626;"></i> Blood Group Distribution</h3>
+            <p>Boarders count by blood type for emergency response</p>
+          </div>
+          <div class="chart-container" id="chartBloodContainer">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <h3><i class="fa-solid fa-map-location-dot" style="color:#10B981;"></i> Boarders by Home District</h3>
+            <p>Geographic origins of International Hall students</p>
+          </div>
+          <div class="chart-container" id="chartDistrictsContainer">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <h3><i class="fa-solid fa-wallet" style="color:#D97706;"></i> Father's Monthly Income Range</h3>
+            <p>Derived monthly family income (Annual Income / 12)</p>
+          </div>
+          <div class="chart-container" id="chartIncomeContainer">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 4: CARDS GRID VIEW ==================== -->
+    <div id="viewCardsSection" style="display: none;" class="cards-grid">
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">Action completed successfully!</span>
+  </div>
+
+  <!-- Scroll to top button -->
+  <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top" style="
+    position: fixed; bottom: 24px; left: 24px; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--primary); color: white; border: none; cursor: pointer; font-size: 18px;
+    display: none; align-items: center; justify-content: center; z-index: 200;
+    box-shadow: 0 4px 12px rgba(15,76,129,0.3); transition: all 0.3s;
+  "><i class="fa-solid fa-arrow-up"></i></button>
+
+  <footer style="background: var(--surface); border-top: 1px solid var(--border); padding: 24px; text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px;">
+      <img src="images/logo.png" alt="Logo" style="width:32px; height:32px; border-radius:8px; object-fit:contain;" onerror="this.style.display='none'">
+      <span style="font-weight:700; font-size:15px; color:var(--text);">Dhaka College International Hall</span>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted);">&copy; 2025-2026 Student Records & Hostel Administration &bull; HSC Session 2025-2026</p>
+  </footer>
+
+  <!-- EMBEDDED STUDENTS DATA (GUARANTEED ZERO CORS ERROR) -->
+  <script>
+    const STUDENTS_DATA = [{"sl_no": 1, "student_id": "adib1", "short_roll": "139", "full_class_roll": "1202526010139", "admission_roll": "196568", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section A", "practical_group": "A2", "name_en": "Abdullah Al Adib", "name_bn": "আবদুল্লাহ আল আদিব", "photo": "images/adib-139.jpg", "phone": "01625329874", "nid": "20097526001124282", "email": "adibsigmaa@gmail.com", "gender": "Male", "dob": "04-Oct-2009", "blood_group": "A+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Md. Akbar Ali", "father_name_bn": "মোঃ আকবর আলী", "father_phone": "01733116384", "father_nid": "19807513695910962", "father_occ": "Teacher", "father_annual_income": 40000, "father_monthly_income": 3333, "mother_name_en": "Rozina Akter", "mother_name_bn": "রোজিনা আকতার", "mother_phone": "01718636978", "mother_nid": "1450323843", "local_guardian": "Mahmood Halimi 01712544248", "present_address": "Vill: Charkoilash, Ward No. 01, Hatiya Pouroshova, Post Office: Hatiya, Post Code: 3890, Upazila: Hatiya, District: Noakali District: Noakhali", "permanent_address": "Vill: Charkoilash, Ward No. 01, Hatiya Pouroshova, Post Office: Hatiya, Post Code: 3890, Upazila: Hatiya, District: Noakali District: Noakhali", "district": "Noakhali", "ssc_roll": "196568", "ssc_reg_no": "2211295908", "ssc_board": "Cumilla", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Statistics", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#adib-196568-139.pdf", "pay_pdf_filename": "adib-196568-139.pdf", "app_pdf_path": "Application Form/#adib-196568-139.pdf", "pay_pdf_path": "Payment Receipts/adib-196568-139.pdf", "photo_filename": "adib-139.jpg", "district_bn": "নোয়াখালী", "upazila_district_bn": "হাতিয়া, নোয়াখালী", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 2, "student_id": "santo2", "short_roll": "161", "full_class_roll": "1202526010161", "admission_roll": "196573", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Naimul Islam (Shanto)", "name_bn": "নাইমুল ইসলাম (শান্ত)", "photo": "images/shanto-161.jpg", "phone": "01613601161", "nid": "20097513657108292", "email": "mistersanto1000@gmail.com", "gender": "Male", "dob": "08-Dec-2009", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "NAZRUL ISLAM", "father_name_bn": "নজরুল ইসলাম", "father_phone": "01759034045", "father_nid": "19687513657944161", "father_occ": "Works in abroad", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "MARIUM BEGUM", "mother_name_bn": "মরিয়ম বেগম", "mother_phone": "01732853060", "mother_nid": "19857513657944162", "local_guardian": "", "present_address": "District: Noakhali", "permanent_address": "House: Nazrul Dubaier Badi Village:East Birbiri Dakghor: Jahajmara-3890 Ward no-06 District: Noakhali", "district": "Noakhali", "ssc_roll": "196573", "ssc_reg_no": "2211295913", "ssc_board": "Cumilla", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#shanto-196573-161.pdf", "pay_pdf_filename": "shanto-196573-161.pdf", "app_pdf_path": "Application Form/#shanto-196573-161.pdf", "pay_pdf_path": "Payment Receipts/shanto-196573-161.pdf", "photo_filename": "shanto-161.jpg", "district_bn": "নোয়াখালী", "upazila_district_bn": "জাহাজমারা, হাতিয়া, নোয়াখালী", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 3, "student_id": "jahid3", "short_roll": "164", "full_class_roll": "1202526010164", "admission_roll": "196560", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Md Zahidul Islam", "name_bn": "মোঃ জাহিদুল ইসলাম", "photo": "images/Zahid-164.jpg", "phone": "01346869238", "nid": "20107513676121278", "email": "zahidsigma164@gmail.com", "gender": "Male", "dob": "07-Jan-2010", "blood_group": "A+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD Zahirul Islam", "father_name_bn": "মোঃ জাহিরুল ইসলাম", "father_phone": "01747625973", "father_nid": "19897513676966542", "father_occ": "Service Holder", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "Merina Akter Akhi", "mother_name_bn": "মেরিনা আক্তার আঁখি", "mother_phone": "01746496782", "mother_nid": "19957513619001498", "local_guardian": "", "present_address": "Village: Sunnerchar,Ward no.08, Hatiya Pourashava,Post office: Hatiya,Post code:3890 , Upzilla: Hatiya , District: Noakhali District: Noakhali", "permanent_address": "Village: Sunnerchar,Ward no.08, Hatiya Pourashava,Post office: Hatiya,Post code:3890 , Upzilla: Hatiya , District: Noakhali District: Noakhali", "district": "Noakhali", "ssc_roll": "196560", "ssc_reg_no": "2211295899", "ssc_board": "Cumilla", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#Zahid-196560-164.pdf", "pay_pdf_filename": "Zahid-196560-164.pdf", "app_pdf_path": "Application Form/#Zahid-196560-164.pdf", "pay_pdf_path": "Payment Receipts/Zahid-196560-164.pdf", "photo_filename": "Zahid-164.jpg", "district_bn": "নোয়াখালী", "upazila_district_bn": "সুন্নেরচর, হাতিয়া, নোয়াখালী", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 4, "student_id": "sakil4", "short_roll": "326", "full_class_roll": "1202526010326", "admission_roll": "129636", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section C", "practical_group": "C1", "name_en": "Md. Shakil Sheikh", "name_bn": "মোঃ শাকিল শেখ", "photo": "images/Shakil-326.jpg", "phone": "01894503342", "nid": "20096723306111722", "email": "", "gender": "Male", "dob": "08-Oct-2009", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. ALAM SHEIKH", "father_name_bn": "মোঃ আলম শেখ", "father_phone": "01718567402", "father_nid": "2830103046", "father_occ": "BUSINESS", "father_annual_income": 180000, "father_monthly_income": 15000, "mother_name_en": "ASMA BEGUM", "mother_name_bn": "আসমা বেগম", "mother_phone": "01821335668", "mother_nid": "5515833001", "local_guardian": "Md. Shamim sheikh", "present_address": "Village: Kanchan, Post:Kanchan-1461, U.P: Rupganj, Dist:Narayanganj District: Narayanganj", "permanent_address": "Village: Kanchan, Post:Kanchan-1461, U.P: Rupganj, Dist:Narayanganj District: Narayanganj", "district": "Narayanganj", "ssc_roll": "129636", "ssc_reg_no": "2210477983", "ssc_board": "Dhaka", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2025-2026", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#Shakil-129636-326.pdf", "pay_pdf_filename": "Shakil-129636-326.pdf", "app_pdf_path": "Application Form/#Shakil-129636-326.pdf", "pay_pdf_path": "Payment Receipts/Shakil-129636-326.pdf", "photo_filename": "Shakil-326.jpg", "district_bn": "নারায়ণগঞ্জ", "upazila_district_bn": "কাঞ্চন, রূপগঞ্জ, নারায়ণগঞ্জ", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 5, "student_id": "sasfkat5", "short_roll": "008", "full_class_roll": "1202526010008", "admission_roll": "431899", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section A", "practical_group": "A1", "name_en": "Shafkat Rahman", "name_bn": "শাফকাত রহমান", "photo": "images/safkat-008.jpg", "phone": "01996569688", "nid": "20108827508063779", "email": "shafkatrahmandkam@gmail.com", "gender": "Male", "dob": "01-Jan-2009", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. SHAHJAHAN ALI", "father_name_bn": "মোঃ শাহজাহান আলী", "father_phone": "01726981550", "father_nid": "8829408773679", "father_occ": "Teacher", "father_annual_income": 647760, "father_monthly_income": 53980, "mother_name_en": "SHARMIN SULTANA", "mother_name_bn": "শারমিন সুলতানা", "mother_phone": "01729634496", "mother_nid": "8216379274", "local_guardian": "", "present_address": "Village : Deboi Post : Birabo Thana : Rupganj District: Narayanganj", "permanent_address": "Village: Charnewargasa, Post : Ullapara R.S Thana : Ullapara District: Sirajganj", "district": "Sirajganj", "ssc_roll": "431899", "ssc_reg_no": "2218986978", "ssc_board": "Madrasah", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#safkat-431899-008.pdf", "pay_pdf_filename": "safkat-431899-008.pdf", "app_pdf_path": "Application Form/#safkat-431899-008.pdf", "pay_pdf_path": "Payment Receipts/safkat-431899-008.pdf", "photo_filename": "safkat-008.jpg", "district_bn": "সিরাজগঞ্জ", "upazila_district_bn": "চরনেওয়াদাগাছা, উল্লাপাড়া, সিরাজগঞ্জ", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 6, "student_id": "munsi6", "short_roll": "022", "full_class_roll": "1202526010022", "admission_roll": "150493", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section A", "practical_group": "A1", "name_en": "Shahriar Al Sakib Munshi", "name_bn": "শাহরিয়ার আল সাকিব মুন্সী", "photo": "images/munsi-022.png", "phone": "01577203120", "nid": "20081927008007668", "email": "", "gender": "Male", "dob": "23-Dec-2008", "blood_group": "B+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Shahneowaz Munshi", "father_name_bn": "শাহনেওয়াজ মুন্সী", "father_phone": "01319061472", "father_nid": "1918118566421", "father_occ": "", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "Musammat Sirina Akter", "mother_name_bn": "মোসাম্মৎ শিরিনা আক্তার", "mother_phone": "01749269156", "mother_nid": "3284149030", "local_guardian": "Sanjida Sultana Shanta 62 no house, opposite of comfort hospital, Green road, Dhaka 01319061472", "present_address": "Choto Alampur, Debidwar, Cumilla District: Comilla", "permanent_address": "Choto Alampur, Debidwar, Cumilla District: Comilla", "district": "Cumilla", "ssc_roll": "150493", "ssc_reg_no": "2211206546", "ssc_board": "Cumilla", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2025-2026", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#munsi-150493-022.pdf", "pay_pdf_filename": "munsi-150493-022.pdf", "app_pdf_path": "Application Form/#munsi-150493-022.pdf", "pay_pdf_path": "Payment Receipts/munsi-150493-022.pdf", "photo_filename": "munsi-022.png", "district_bn": "কুমিল্লা", "upazila_district_bn": "ছোট আলমপুর, দেবীদ্বার, কুমিল্লা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 7, "student_id": "musfik7", "short_roll": "122", "full_class_roll": "1202526010122", "admission_roll": "170222", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section A", "practical_group": "A2", "name_en": "Md. Mushfiqur Rahman", "name_bn": "মোঃ মুশফিকুর রহমান মহিন", "photo": "images/musfik-122.jpg", "phone": "01767811792", "nid": "20090925006022498", "email": "mushfiq88bd@gmail.com", "gender": "Male", "dob": "21-Aug-2009", "blood_group": "A+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. KAMAL HOSSAIN", "father_name_bn": "মোঃ কামাল হোসেন", "father_phone": "01726787445", "father_nid": "0916571524238", "father_occ": "Job", "father_annual_income": 240000, "father_monthly_income": 20000, "mother_name_en": "LUTFUN NAHAR", "mother_name_bn": "লুৎফুন নাহার", "mother_phone": "01316538033", "mother_nid": "0916571524239", "local_guardian": "MD. NURUL ISLAM Adarsha Para 6 no.ward, Charfassion,Bhola", "present_address": "Tenguri, Zirani, Savar,Dhaka District: Dhaka", "permanent_address": "South Sakuchia,Manpura,Bhola District: Bhola", "district": "Bhola", "ssc_roll": "170222", "ssc_reg_no": "2210580751", "ssc_board": "Dhaka", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#musfik-170222-122.pdf", "pay_pdf_filename": "musfik-170222-122.pdf", "app_pdf_path": "Application Form/#musfik-170222-122.pdf", "pay_pdf_path": "Payment Receipts/musfik-170222-122.pdf", "photo_filename": "musfik-122.jpg", "district_bn": "ভোলা", "upazila_district_bn": "দক্ষিণ সাকুচিয়া, মনপুরা, ভোলা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 8, "student_id": "esty8", "short_roll": "870", "full_class_roll": "1202526010870", "admission_roll": "112358", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section F", "practical_group": "F2", "name_en": "Taskin Rahman Esty", "name_bn": "তাসকিন রহমান এস্টি", "photo": "images/taskinesty-870.jpg", "phone": "01974097612", "nid": "20081591622101176", "email": "dhakaiyyaesty@gmail.com", "gender": "Male", "dob": "21-Aug-2008", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Mohammad Siddiqur Rahman", "father_name_bn": "মুহাম্মদ সিদ্দিকুর রহমান", "father_phone": "01714097613", "father_nid": "9104510004", "father_occ": "Banker", "father_annual_income": 700000, "father_monthly_income": 58333, "mother_name_en": "Anjuman Ara Arju", "mother_name_bn": "আঞ্জুমান আরা আরজু", "mother_phone": "01715370415", "mother_nid": "9151670859", "local_guardian": "Tanvir Rahman Efty Opposite of Enam medical College,Enam Medical Hostel, Thana Stand,Savar.", "present_address": "Present Address: Kamalghat Mazar Road,Sayed Monjil,(1st floor),purbi Mother Bari,po:GP0,ps:Sadarghat,Dist:Chattogram District: Dhaka", "permanent_address": "Permanent address:Vill+po=Kothuri,ps:Nawabgong,Dist:Dhaka. District: Dhaka", "district": "Dhaka", "ssc_roll": "112358", "ssc_reg_no": "2214308267", "ssc_board": "Chattogram", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2025-2026", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#taskinesty-112358-870.pdf", "pay_pdf_filename": "taskinesty-112358-870.pdf", "app_pdf_path": "Application Form/#taskinesty-112358-870.pdf", "pay_pdf_path": "Payment Receipts/taskinesty-112358-870.pdf", "photo_filename": "taskinesty-870.jpg", "district_bn": "ঢাকা", "upazila_district_bn": "কোঠুরী, নবাবগঞ্জ, ঢাকা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 9, "student_id": "nafis9", "short_roll": "141", "full_class_roll": "1202526010141", "admission_roll": "268583", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section A", "practical_group": "A2", "name_en": "Nafis Alam Tarif", "name_bn": "মোঃ নাফিস আলম তারিফ", "photo": "images/nafis-141.jpg", "phone": "01738770330", "nid": "20089418615108694", "email": "tarifalam265@gmail.com", "gender": "Male", "dob": "12-Oct-2008", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD NUHED ALAM", "father_name_bn": "মোঃ নূহেদ আলম", "father_phone": "01718355400", "father_nid": "3720050065", "father_occ": "Teacher", "father_annual_income": 500000, "father_monthly_income": 41667, "mother_name_en": "MST NILUFA IRIN", "mother_name_bn": "মোছাঃ নিলুফা আইরিন", "mother_phone": "01773702633", "mother_nid": "6420038223", "local_guardian": "", "present_address": "Bhangbari, Banglagar, Bachor, Ranisankal 5120 District: Thakurgaon", "permanent_address": "Bhangbari, Banglagar, Bachor, Ranisankal 5120 District: Thakurgaon", "district": "Thakurgaon", "ssc_roll": "268583", "ssc_reg_no": "2217803654", "ssc_board": "Dinajpur", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#nafis-268583-141.pdf", "pay_pdf_filename": "nafis-268583-141.pdf", "app_pdf_path": "Application Form/#nafis-268583-141.pdf", "pay_pdf_path": "Payment Receipts/nafis-268583-141.pdf", "photo_filename": "nafis-141.jpg", "district_bn": "ঠাকুরগাঁও", "upazila_district_bn": "ভাঙ্গবাড়ি, রানীশংকৈল, ঠাকুরগাঁও", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 10, "student_id": "kayes10", "short_roll": "882", "full_class_roll": "1202526010882", "admission_roll": "1251031", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section F", "practical_group": "F2", "name_en": "Riasadul Islam Kayes", "name_bn": "রিয়াসাদুল ইসলাম কায়েস", "photo": "images/kayes-882.jpg", "phone": "01629171207", "nid": "2000822149952591", "email": "riasadulislamkayes@gmail.com", "gender": "Male", "dob": "13-Dec-2008", "blood_group": "A+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MOHAMMAD ZAKARIA", "father_name_bn": "সাইদুল কাদের", "father_phone": "01610968370", "father_nid": "6013094161", "father_occ": "00", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "RASMIN AKTER", "mother_name_bn": "রেশমিন আক্তার", "mother_phone": "01328909453", "mother_nid": "6873191024", "local_guardian": "", "present_address": "732, Purba Cha-bagan, Malumghat (4743), Chakaria, Cox'sbazar District: Coxs Bazar", "permanent_address": "732, Purba Cha-bagan, Malumghat (4743), Chakaria, Cox'sbazar District: Coxs Bazar", "district": "Cox's Bazar", "ssc_roll": "125103", "ssc_reg_no": "2214426999", "ssc_board": "Chattogram", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#kayes-1251031-882.pdf", "pay_pdf_filename": "kayes-1251031-882.pdf", "app_pdf_path": "Application Form/#kayes-1251031-882.pdf", "pay_pdf_path": "Payment Receipts/kayes-1251031-882.pdf", "photo_filename": "kayes-882.jpg", "district_bn": "কক্সবাজার", "upazila_district_bn": "মালুমঘাট, চকরিয়া, কক্সবাজার", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 11, "student_id": "jahid11", "short_roll": "223", "full_class_roll": "1202526010223", "admission_roll": "402416", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Md. Jahidul Islam", "name_bn": "মোঃ জাহিদুল ইসলাম", "photo": "images/jahidvay-223.jpg", "phone": "01828246239", "nid": "2881766451", "email": "jkjahidultaskin10@gmail.com", "gender": "Male", "dob": "04-Apr-2006", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Khorshed Alam", "father_name_bn": "খোরশেদ আলম", "father_phone": "01828246239", "father_nid": "1000485001", "father_occ": "Farmer", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "Juosna Begum", "mother_name_bn": "জোৎস্না বেগম", "mother_phone": "", "mother_nid": "4150962522", "local_guardian": "", "present_address": "District: Narshingdi Subdistrict : Narshingdi Sadar Thanas: Madhabdi Post office : Chardigoldi District: Narsingdi", "permanent_address": "District: Narshingdi Subdistrict : Narshingdi Sadar Thanas: Madhabdi Post office : Chardigoldi District: Narsingdi", "district": "Narsingdi", "ssc_roll": "402416", "ssc_reg_no": "2218988796", "ssc_board": "Madrasah", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2025-2026", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#jahidvay-402416-223.pdf", "pay_pdf_filename": "jahidvay-402416-223.pdf", "app_pdf_path": "Application Form/#jahidvay-402416-223.pdf", "pay_pdf_path": "Payment Receipts/jahidvay-402416-223.pdf", "photo_filename": "jahidvay-223.jpg", "district_bn": "নরসিংদী", "upazila_district_bn": "চরদিঘলদী, মাধবদী, নরসিংদী", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 12, "student_id": "siam12", "short_roll": "195", "full_class_roll": "1202526010195", "admission_roll": "124282", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Siam Hasan (Nator)", "name_bn": "সিয়াম হাসান", "photo": "images/siamnator-195.jpg", "phone": "01577234944", "nid": "20086914167108916", "email": "siamhasananik01@gmail.com", "gender": "Male", "dob": "17-Dec-2008", "blood_group": "B+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Md. Sajedur Rahaman", "father_name_bn": "মোঃ সাজেদুর রহমান", "father_phone": "01761866285", "father_nid": "6914167989475", "father_occ": "Farmer", "father_annual_income": 250000, "father_monthly_income": 20833, "mother_name_en": "Mst. Onamika Khatun", "mother_name_bn": "মোছাঃ অনামিকা খাতুন", "mother_phone": "01804692801", "mother_nid": "6914167989476", "local_guardian": "Mridul Hasan Jagannath University, Phone: 01742090524", "present_address": "Vill.: Mashinda Majhpara, PO: Shikarpur, PS: Gurudaspur District: Natore", "permanent_address": "Vill.: Mashinda Majhpara, PO: Shikarpur, PS: Gurudaspur District: Natore", "district": "Natore", "ssc_roll": "124282", "ssc_reg_no": "2212668871", "ssc_board": "Rajshahi", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Statistics", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#siamnator-124282-195.pdf", "pay_pdf_filename": "siamnator-124282-195.pdf", "app_pdf_path": "Application Form/#siamnator-124282-195.pdf", "pay_pdf_path": "Payment Receipts/siamnator-124282-195.pdf", "photo_filename": "siamnator-195.jpg", "district_bn": "নাটোর", "upazila_district_bn": "মশিন্দা মাঝপাড়া, গুরুদাসপুর, নাটোর", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 13, "student_id": "siam13", "short_roll": "881", "full_class_roll": "1202526010881", "admission_roll": "626628", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section F", "practical_group": "F2", "name_en": "Md. Siam Ali (Kustia)", "name_bn": "মোঃ সিয়াম আলী", "photo": "images/siamkustia-881.jpg", "phone": "01705310841", "nid": "20075017917100088", "email": "", "gender": "Male", "dob": "05-Oct-2007", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Md.Robiul Islam", "father_name_bn": "মোঃ রবিউল ইসলাম", "father_phone": "01705633292", "father_nid": "5017917428460", "father_occ": "Immigrant", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "Mst.Sultana Khatun", "mother_name_bn": "মোছাঃ সুলতানা খাতুন", "mother_phone": "", "mother_nid": "", "local_guardian": "", "present_address": "District:", "permanent_address": "VILL: KHORDA AILCHARA , PO: KHORDA AILCHARA-7031, UPAZILA : KUSHTIA SADAR , DISTRICT: KUSHTIA District: Kushtia", "district": "Kushtia", "ssc_roll": "626628", "ssc_reg_no": "2213592495", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#siamkustia-626628-881.pdf", "pay_pdf_filename": "siamkustia-626628-881.pdf", "app_pdf_path": "Application Form/#siamkustia-626628-881.pdf", "pay_pdf_path": "Payment Receipts/siamkustia-626628-881.pdf", "photo_filename": "siamkustia-881.jpg", "district_bn": "কুষ্টিয়া", "upazila_district_bn": "খোরদা আইলচারা, কুষ্টিয়া সদর, কুষ্টিয়া", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 14, "student_id": "saimun14", "short_roll": "322", "full_class_roll": "1202526010322", "admission_roll": "160603", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section C", "practical_group": "C1", "name_en": "Saimun Islam", "name_bn": "মোঃ সাইমুন ইসলাম", "photo": "images/saimun-322.jpg", "phone": "01772589255", "nid": "20078815094111289", "email": "", "gender": "Male", "dob": "15-Sep-2007", "blood_group": "AB+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Md Abu Syed", "father_name_bn": "মোঃ আবু সাঈদ", "father_phone": "01772589255", "father_nid": "19792699237986542", "father_occ": "", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "Mst Sabina Yeasmin", "mother_name_bn": "মোছাঃ সাবিনা ইয়াসমিন", "mother_phone": "01716697822", "mother_nid": "5070418420", "local_guardian": "Mst Nurjahan 01763164433", "present_address": "Pobnartek,Dhamsona,Savar,Dhaka District: Dhaka", "permanent_address": "Konabari,Rupsha,Kazipur,Sirajganj District: Sirajganj", "district": "Sirajganj", "ssc_roll": "160603", "ssc_reg_no": "2210583563", "ssc_board": "Rajshahi", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#saimun-160603-322.pdf", "pay_pdf_filename": "saimun-160603-322.pdf", "app_pdf_path": "Application Form/#saimun-160603-322.pdf", "pay_pdf_path": "Payment Receipts/saimun-160603-322.pdf", "photo_filename": "saimun-322.jpg", "district_bn": "সিরাজগঞ্জ", "upazila_district_bn": "কোনাবাড়ী, কাজিপুর, সিরাজগঞ্জ", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 15, "student_id": "pranto15", "short_roll": "863", "full_class_roll": "1202526010863", "admission_roll": "625936", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section F", "practical_group": "F2", "name_en": "Ratul Hassan Pranto", "name_bn": "মোঃ রাতুল হাসান প্রান্ত", "photo": "images/pranto-863.png", "phone": "01995393323", "nid": "20105017931020671", "email": "ratulhasandc@gmail.com", "gender": "Male", "dob": "07-Feb-2010", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. ALTAF HOSSEN", "father_name_bn": "মোঃ আলতাফ হোসেন", "father_phone": "01740924480", "father_nid": "5057725680", "father_occ": "BUSINESSMAN", "father_annual_income": 250000, "father_monthly_income": 20833, "mother_name_en": "LATE. NAZMUN NAHAR", "mother_name_bn": "মৃত নাজমুন নাহার", "mother_phone": "", "mother_nid": "", "local_guardian": "MD. IKLACHUR RAHMAN Holding-3635,Shanti Nibash,Merajnagar,B-block, Rayerbag,Kodomtoli,Dhaka Mob: 01729767875", "present_address": "NOROHORIDIA, GOSWAMI DURGAPUR, KUSHTIA SADAR, KUSHTIA District: Kushtia", "permanent_address": "NOROHORIDIA, GOSWAMI DURGAPUR, KUSHTIA SADAR, KUSHTIA District: Kushtia", "district": "Kushtia", "ssc_roll": "625936", "ssc_reg_no": "2213576117", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#pranto-625936-863.pdf", "pay_pdf_filename": "pranto-625936-863.pdf", "app_pdf_path": "Application Form/#pranto-625936-863.pdf", "pay_pdf_path": "Payment Receipts/pranto-625936-863.pdf", "photo_filename": "pranto-863.png", "district_bn": "কুষ্টিয়া", "upazila_district_bn": "নরহরিদিয়া, কুষ্টিয়া সদর, কুষ্টিয়া", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 16, "student_id": "nayem18", "short_roll": "639", "full_class_roll": "1202526010639", "admission_roll": "603084", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section E", "practical_group": "E1", "name_en": "Nayeem Sarwar", "name_bn": "নাঈম সরওয়ার", "photo": "images/neyem-639.jpg", "phone": "01331198715", "nid": "20105017956031586", "email": "", "gender": "Male", "dob": "31-Dec-2010", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "ABU SHAID MD. GOLAM SORWAR", "father_name_bn": "আবু সাঈদ মোঃ গোলাম সরওয়ার", "father_phone": "01711985399", "father_nid": "8676330411", "father_occ": "Representative", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "SAMSUN NAHAR", "mother_name_bn": "সামসুননাহার", "mother_phone": "01735737581", "mother_nid": "", "local_guardian": "Vill: College Para, PO: Alamdanga, PS: Alamdanga", "present_address": "Vill: College Para, PO: Alamdanga, PS: Alamdanga District: Chuadanga", "permanent_address": "Vill: College Para, PO: Alamdanga, PS: Alamdanga District: Chuadanga", "district": "Chuadanga", "ssc_roll": "603084", "ssc_reg_no": "2213415705", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#neyem-603084-639.pdf", "pay_pdf_filename": "neyem-603084-639.pdf", "app_pdf_path": "Application Form/#neyem-603084-639.pdf", "pay_pdf_path": "Payment Receipts/neyem-603084-639.pdf", "photo_filename": "neyem-639.jpg", "district_bn": "চুয়াডাঙ্গা", "upazila_district_bn": "কলেজ পাড়া, আলমডাঙ্গা, চুয়াডাঙ্গা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 17, "student_id": "alauddin17", "short_roll": "140", "full_class_roll": "1202526030140", "admission_roll": "760532", "hall_room": "", "group": "HSC - Humanities", "group_category": "Humanities", "section": "N/A", "practical_group": "N/A", "name_en": "Md. Alauddin Mollah", "name_bn": "মোঃ আলাউদ্দিন মোল্লা", "photo": "images/alawddin-140.jpg", "phone": "01914476860", "nid": "20096515247025076", "email": "", "gender": "Male", "dob": "09-Sep-2009", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. ISHAQUE MOLLAH", "father_name_bn": "মোঃ ইসাহাক মোল্লা", "father_phone": "01956324329", "father_nid": "5070954507", "father_occ": "Business", "father_annual_income": 96000, "father_monthly_income": 8000, "mother_name_en": "SUFEA", "mother_name_bn": "সুফিয়া", "mother_phone": "", "mother_nid": "5520955922", "local_guardian": "", "present_address": "Village: Kalisongkorpur, Post Office: Joshobontopur, P/S: Mohammadpur, Dist: Magura District: Magura", "permanent_address": "Village: Kalisongkorpur, Post Office: Joshobontopur, P/S: Mohammadpur, Dist: Magura District: Magura", "district": "Magura", "ssc_roll": "760532", "ssc_reg_no": "2213529214", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Humanities", "elective_subject": "Logic, Civics, History", "fourth_subject": "Psychology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#alawddin-760532-140.pdf", "pay_pdf_filename": "alawddin-760532-140.pdf", "app_pdf_path": "Application Form/#alawddin-760532-140.pdf", "pay_pdf_path": "Payment Receipts/alawddin-760532-140.pdf", "photo_filename": "alawddin-140.jpg", "district_bn": "মাগুরা", "upazila_district_bn": "কালিশংকরপুর, মহম্মদপুর, মাগুরা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 18, "student_id": "rafiq18", "short_roll": "872", "full_class_roll": "1202526010872", "admission_roll": "621741", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section F", "practical_group": "F2", "name_en": "Md. Rafiq Bin Nizam", "name_bn": "মোঃ রফিক বিন নিজাম", "photo": "images/rafiq-872.jpg", "phone": "01342909383", "nid": "20085013994102055", "email": "", "gender": "Male", "dob": "24-Dec-2008", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. ZAFIRUL ISLAM", "father_name_bn": "মোঃ জাফিরুল ইসলাম", "father_phone": "01775208547", "father_nid": "9123681554", "father_occ": "TEACHER", "father_annual_income": 100000, "father_monthly_income": 8333, "mother_name_en": "MST. RABIA BASRY", "mother_name_bn": "মোছাঃ রাবিয়া বসরী", "mother_phone": "01342909383", "mother_nid": "3723494542", "local_guardian": "MD. ZAFIRUL ISLAM RIFAITPUR, DAULATPUR, KUSHTIA", "present_address": "RIFAITPUR, DAULATPUR, KUSHTIA District: Kushtia", "permanent_address": "RIFAITPUR, DAULATPUR, KUSHTIA District: Kushtia", "district": "Kushtia", "ssc_roll": "621741", "ssc_reg_no": "2213505414", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#rafiq-621741-872.pdf", "pay_pdf_filename": "rafiq-621741-872.pdf", "app_pdf_path": "Application Form/#rafiq-621741-872.pdf", "pay_pdf_path": "Payment Receipts/rafiq-621741-872.pdf", "photo_filename": "rafiq-872.jpg", "district_bn": "কুষ্টিয়া", "upazila_district_bn": "রিফায়েতপুর, দৌলতপুর, কুষ্টিয়া", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 19, "student_id": "riyad19", "short_roll": "596", "full_class_roll": "1202526010596", "admission_roll": "223802", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section D", "practical_group": "D2", "name_en": "Tashfiqur Rahman Riyad", "name_bn": "তাশফিকুর রহমান রিয়াদ", "photo": "images/riyad-596.jpg", "phone": "01732168077", "nid": "20096716879108282", "email": "tashfiqurrahmanriyad2009@gmail.com", "gender": "Male", "dob": "17-May-2009", "blood_group": "B+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Md. Masum Miah", "father_name_bn": "মাসুম মিয়া", "father_phone": "01732168077", "father_nid": "8689534142", "father_occ": "farmer", "father_annual_income": 130000, "father_monthly_income": 10833, "mother_name_en": "Tasmin Akter", "mother_name_bn": "তাসমিন আক্তার", "mother_phone": "01748492314", "mother_nid": "", "local_guardian": "", "present_address": "purbachal, Rupganj, Narayanganj District: Narayanganj", "permanent_address": "purbachal, Rupganj, Narayanganj District: Narayanganj", "district": "Narayanganj", "ssc_roll": "223802", "ssc_reg_no": "2210476765", "ssc_board": "Dhaka", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#riyad-223802-596.pdf", "pay_pdf_filename": "riyad-223802-596.pdf", "app_pdf_path": "Application Form/#riyad-223802-596.pdf", "pay_pdf_path": "Payment Receipts/riyad-223802-596.pdf", "photo_filename": "riyad-596.jpg", "district_bn": "নারায়ণগঞ্জ", "upazila_district_bn": "পূর্বাচল, রূপগঞ্জ, নারায়ণগঞ্জ", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 20, "student_id": "mosih20", "short_roll": "332", "full_class_roll": "1202526010332", "admission_roll": "120725", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section C", "practical_group": "C1", "name_en": "Md. Chisty Islam Mosih", "name_bn": "মোঃ চিশতী ইসলাম মসীহ", "photo": "images/mosih-332.jpg", "phone": "01320823354", "nid": "20096914485110975", "email": "", "gender": "Male", "dob": "30-May-2009", "blood_group": "A+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD BOZLUR RAHMAN", "father_name_bn": "মোঃ বজলুর রহমান", "father_phone": "01763073516", "father_nid": "4618270070", "father_occ": "Tailor", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "MST AKHI BEGUM", "mother_name_bn": "মোছাঃ আঁখি বেগম", "mother_phone": "01763969259", "mother_nid": "9559018412", "local_guardian": "", "present_address": "Village: Dokkin Lalpur, Post: Lalpur, P.S: Lalpur, District: Natore. District: Natore", "permanent_address": "Village: Dokkin Lalpur, Post: Lalpur, P.S: Lalpur, District: Natore. District: Natore", "district": "Natore", "ssc_roll": "120725", "ssc_reg_no": "2212669969", "ssc_board": "Rajshahi", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#mosih-120725-332.pdf", "pay_pdf_filename": "mosih-120725-332.pdf", "app_pdf_path": "Application Form/#mosih-120725-332.pdf", "pay_pdf_path": "Payment Receipts/mosih-120725-332.pdf", "photo_filename": "mosih-332.jpg", "district_bn": "নাটোর", "upazila_district_bn": "দক্ষিণ লালপুর, লালপুর, নাটোর", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 21, "student_id": "abrar21", "short_roll": "200", "full_class_roll": "1202526010200", "admission_roll": "638769", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Md. Ahanaf Abrar", "name_bn": "মোঃ আহনাফ আবরার", "photo": "images/abrar-200.jpg", "phone": "01515288692", "nid": "20094418018103983", "email": "abrarislam0723@gmail.com", "gender": "Male", "dob": "01-Jan-2009", "blood_group": "B+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. JAHANGIR HOSSAIN", "father_name_bn": "মোঃ জাহাঙ্গীর হোসেন", "father_phone": "01723510651", "father_nid": "3713137051", "father_occ": "Teacher", "father_annual_income": 210000, "father_monthly_income": 17500, "mother_name_en": "MST. JOLY KHATUN", "mother_name_bn": "মোছাঃ জলি খাতুন", "mother_phone": "01754433313", "mother_nid": "2389501806", "local_guardian": "MD. SERAJUS SALEKIN PORAG 429/B Malibag Chowdhury para, Near by Matir Mosjid, Opposite side of walton service point, Rampura, Dhaka, Phone: 01915336051", "present_address": "429/B Malibag Chowdhury para, Near by Matir Mosjid, Opposite side of walton service point, Rampura, Dhaka District: Dhaka", "permanent_address": "Village: Dhawra, P.O: Dhawra(7320), P.S: Shailkupa District: Jhenaidah", "district": "Jhenaidah", "ssc_roll": "638769", "ssc_reg_no": "2213474821", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#abrar-638769-200.pdf", "pay_pdf_filename": "abrar-638769-200.pdf", "app_pdf_path": "Application Form/#abrar-638769-200.pdf", "pay_pdf_path": "Payment Receipts/abrar-638769-200.pdf", "photo_filename": "abrar-200.jpg", "district_bn": "ঝিনাইদহ", "upazila_district_bn": "ধৌড়া, শৈলকুপা, ঝিনাইদহ", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 22, "student_id": "rudro22", "short_roll": "100", "full_class_roll": "1202526020100", "admission_roll": "146693", "hall_room": "", "group": "HSC - Business Studies", "group_category": "Business Studies", "section": "N/A", "practical_group": "N/A", "name_en": "M M Tanvir (Rudro)", "name_bn": "এম এম তানভীর (রুদ্র)", "photo": "images/rudro-100.jpg", "phone": "01516547125", "nid": "20087618317037989", "email": "", "gender": "Male", "dob": "04-Jun-2008", "blood_group": "B+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD RAFIQUL ISLAM", "father_name_bn": "মোঃ রফিকুল ইসলাম", "father_phone": "01751723978", "father_nid": "7300868689", "father_occ": "TECAHER", "father_annual_income": 426000, "father_monthly_income": 35500, "mother_name_en": "MST TASLIMA KHATUN SUFIA", "mother_name_bn": "মোছাঃ তাসলিমা খাতুন সুফিয়া", "mother_phone": "01714526234", "mother_nid": "1900860469", "local_guardian": "", "present_address": "BONKOLA, BONKOLA-6662, SUJANAGAR, PABNA District: Pabna", "permanent_address": "BOALIA, AHAMMADPUR-6682, SUJANAGAR, PABNA District: Pabna", "district": "Pabna", "ssc_roll": "146693", "ssc_reg_no": "2212728447", "ssc_board": "Rajshahi", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Finance, Banking & Insurance", "fourth_subject": "Statistics", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#rudro-146693-100.pdf", "pay_pdf_filename": "rudro-146693-100.pdf", "app_pdf_path": "Application Form/#rudro-146693-100.pdf", "pay_pdf_path": "Payment Receipts/rudro-146693-100.pdf", "photo_filename": "rudro-100.jpg", "district_bn": "পাবনা", "upazila_district_bn": "বোয়ালিয়া, সুজানগর, পাবনা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 23, "student_id": "riasad23", "short_roll": "337", "full_class_roll": "1202526010337", "admission_roll": "625467", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section C", "practical_group": "C1", "name_en": "Sobhan Mahmud Khan (Riasad)", "name_bn": "সোবহান মাহমুদ খান (রিয়াসাদ)", "photo": "images/riasad-337.jpg", "phone": "01922407329", "nid": "20095013967110300", "email": "", "gender": "Male", "dob": "26-Jul-2009", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MAHABUB KHAN", "father_name_bn": "মাহাবুব খাঁন", "father_phone": "01739269792", "father_nid": "5534048573", "father_occ": "Business", "father_annual_income": 250000, "father_monthly_income": 20833, "mother_name_en": "MST LUTHFUNNAHAR SHIMU", "mother_name_bn": "মোসাঃ লুৎফুন্নাহার শিমু", "mother_phone": "01400924562", "mother_nid": "19845013967914142", "local_guardian": "ABUL KALAM AZAD MUKDA, MOTIJIL, DHAKA, 01722337139", "present_address": "NOTUN AMDOHO ALLARDARGA, DAULATPUR District: Kushtia", "permanent_address": "NOTUN AMDOHO ALLARDARGA, DAULATPUR District: Kushtia", "district": "Kushtia", "ssc_roll": "625467", "ssc_reg_no": "2213518137", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#riasad-625467-337.pdf", "pay_pdf_filename": "riasad-625467-337.pdf", "app_pdf_path": "Application Form/#riasad-625467-337.pdf", "pay_pdf_path": "Payment Receipts/riasad-625467-337.pdf", "photo_filename": "riasad-337.jpg", "district_bn": "কুষ্টিয়া", "upazila_district_bn": "নতুন আমদহ, দৌলতপুর, কুষ্টিয়া", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 24, "student_id": "musa24", "short_roll": "213", "full_class_roll": "1202526010213", "admission_roll": "425780", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Mahbubur Rahman Musa", "name_bn": "মাহবুবুর রহমান মুসা", "photo": "images/musa-213.jpg", "phone": "01603359325", "nid": "20094218440000509", "email": "mahbuburrahmanmusa99@gmail.com", "gender": "Male", "dob": "10-Apr-2009", "blood_group": "A+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD MIJANUR RAHMAN", "father_name_bn": "মোঃ মিজানুর রহমান", "father_phone": "01718450916", "father_nid": "5988867577", "father_occ": "Teacher", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "JESMIN AKTER", "mother_name_bn": "জেসমিন আক্তার", "mother_phone": "01735017728", "mother_nid": "3736866298", "local_guardian": "Mahabuba Rahman Nabila বাঘড়ী, রাজাপুর,, ঝালকািঠ, বিরশাল, ঢাকা, বাংলােদশ।", "present_address": "বাঘড়ী, রাজাপুর,, ঝালকািঠ, বিরশাল, ঢাকা, বাংলােদশ। District: Jhalakati", "permanent_address": "বাঘড়ী, রাজাপুর,, ঝালকািঠ, বিরশাল, ঢাকা, বাংলােদশ। District: Jhalakati", "district": "Jhalakathi", "ssc_roll": "425780", "ssc_reg_no": "2218729335", "ssc_board": "Madrasah", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#musa-425780-213.pdf", "pay_pdf_filename": "musa-425780-213.pdf", "app_pdf_path": "Application Form/#musa-425780-213.pdf", "pay_pdf_path": "Payment Receipts/musa-425780-213.pdf", "photo_filename": "musa-213.jpg", "district_bn": "ঝালকাঠি", "upazila_district_bn": "বাঘড়ী, রাজাপুর, ঝালকাঠি", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 25, "student_id": "ariful25", "short_roll": "050", "full_class_roll": "1202526010050", "admission_roll": "116995", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section A", "practical_group": "A1", "name_en": "Ariful Islam", "name_bn": "মোঃ আরিফুল ইসলাম", "photo": "images/ariful-050.jpg", "phone": "01848631025", "nid": "20097024406005812", "email": "arifulislam20238086@gmail.com", "gender": "Male", "dob": "21-Sep-2009", "blood_group": "O+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "M. AZIZUL ISLAM", "father_name_bn": "মোঃ আজিজুল ইসলাম", "father_phone": "01738114130", "father_nid": "5526854657", "father_occ": "Farmer", "father_annual_income": 84000, "father_monthly_income": 7000, "mother_name_en": "MST NAZMA BEGUM", "mother_name_bn": "মোসাঃ নাজমা বেগম", "mother_phone": "01798720802", "mother_nid": "6876859635", "local_guardian": "M. NAJMUL ISLAM 121/1,Dewan palace, West Agargaon, Dhaka (1207) Phone number :01752588234", "present_address": "P.M COLLEGE PARA, ROHANPUR (6320), Rahanpur Paurashava,Gomastapur,Chapainawabganj District: Nawabganj", "permanent_address": "P.M COLLEGE PARA, ROHANPUR (6320), Rahanpur Paurashava,Gomastapur,Chapainawabganj District: Nawabganj", "district": "Chapai Nawabganj", "ssc_roll": "116995", "ssc_reg_no": "2212651048", "ssc_board": "Rajshahi", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2025-2026", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#ariful-116995-050.pdf", "pay_pdf_filename": "ariful-116995-050.pdf", "app_pdf_path": "Application Form/#ariful-116995-050.pdf", "pay_pdf_path": "Payment Receipts/ariful-116995-050.pdf", "photo_filename": "ariful-050.jpg", "district_bn": "চাঁপাইনবাবগঞ্জ", "upazila_district_bn": "রহনপুর, গোমস্তাপুর, চাঁপাইনবাবগঞ্জ", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 26, "student_id": "rejawl26", "short_roll": "098", "full_class_roll": "1202526030098", "admission_roll": "164810", "hall_room": "", "group": "HSC - Humanities", "group_category": "Humanities", "section": "N/A", "practical_group": "N/A", "name_en": "Md Rezaul Karim", "name_bn": "মোঃ রেজাউল করিম", "photo": "images/rejawl-098.png", "phone": "01641659606", "nid": "20081919477101846", "email": "rkdc8989@gmail.com", "gender": "Male", "dob": "10-Sep-2008", "blood_group": "A+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "TOFAZZOL HOSSEN", "father_name_bn": "তোফাজ্জল হোসেন", "father_phone": "01820098153", "father_nid": "1918131647683", "father_occ": "", "father_annual_income": 0, "father_monthly_income": 0, "mother_name_en": "MST RANU BEGUM", "mother_name_bn": "মোসাঃ রানু বেগম", "mother_phone": "", "mother_nid": "1918131647683", "local_guardian": "", "present_address": "VILLAGE: TULAKANDI, POST OFFICE: NARANDIA-3519, POLICE STATION: TITAS District: Comilla", "permanent_address": "VILLAGE: TULAKANDI, POST OFFICE: NARANDIA-3519, POLICE STATION: TITAS District: Comilla", "district": "Cumilla", "ssc_roll": "164810", "ssc_reg_no": "2211189763", "ssc_board": "Cumilla", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Geography, Economics, Civics", "fourth_subject": "Psychology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#rejawl-164810-098.pdf", "pay_pdf_filename": "rejawl-164810-098.pdf", "app_pdf_path": "Application Form/#rejawl-164810-098.pdf", "pay_pdf_path": "Payment Receipts/rejawl-164810-098.pdf", "photo_filename": "rejawl-098.png", "district_bn": "কুমিল্লা", "upazila_district_bn": "তুলাকান্দি, তিতাস, কুমিল্লা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 27, "student_id": "sabit27", "short_roll": "171", "full_class_roll": "1202526010171", "admission_roll": "633221", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Muhammad Rayhanoor Sabit", "name_bn": "মুহাম্মদ রায়হানুর সাবিত", "photo": "images/sabit-171.jpg", "phone": "01852223068", "nid": "20096515223030788", "email": "", "gender": "Male", "dob": "11-Feb-2009", "blood_group": "AB+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "Md. Abul Kasham", "father_name_bn": "মোঃ আবুল কাশেম", "father_phone": "01971444941", "father_nid": "5087319975", "father_occ": "Farmer", "father_annual_income": 72000, "father_monthly_income": 6000, "mother_name_en": "Mst. Salma Begum", "mother_name_bn": "মোছাঃ সালমা বেগম", "mother_phone": "", "mother_nid": "", "local_guardian": "", "present_address": "District:", "permanent_address": "Marich Pasha, Lohagara District: Narail", "district": "Narail", "ssc_roll": "633221", "ssc_reg_no": "2213550272", "ssc_board": "Jashore", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Higher Math", "fourth_subject": "Biology", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#sabit-633221-171.pdf", "pay_pdf_filename": "sabit-633221-171.pdf", "app_pdf_path": "Application Form/#sabit-633221-171.pdf", "pay_pdf_path": "Payment Receipts/sabit-633221-171.pdf", "photo_filename": "sabit-171.jpg", "district_bn": "নড়াইল", "upazila_district_bn": "মরিচ পাশা, লোহাগড়া, নড়াইল", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}, {"sl_no": 28, "student_id": "alif28", "short_roll": "153", "full_class_roll": "1202526010153", "admission_roll": "211619", "hall_room": "", "group": "HSC - Science", "group_category": "Science", "section": "Section B", "practical_group": "B1", "name_en": "Alimuzzamann Alif", "name_bn": "মোঃ আলিমুজ্জামান আলিফ", "photo": "images/alif-153.jpg", "phone": "01758173284", "nid": "20083219175113917", "email": "mdalimuzzamanalif890@gmail.com", "gender": "Male", "dob": "11-Nov-2008", "blood_group": "AB+", "religion": "Islam", "nationality": "Bangladeshi", "father_name_en": "MD. NUR ZAMAN MIA", "father_name_bn": "মোঃ নুর জামান মিয়া", "father_phone": "01717909568", "father_nid": "2819190592", "father_occ": "Clerk", "father_annual_income": 500000, "father_monthly_income": 41667, "mother_name_en": "MST. AYESHA SIDDIKA", "mother_name_bn": "মোছাঃ আয়েশা সিদ্দিকা", "mother_phone": "01761206311", "mother_nid": "4619557699", "local_guardian": "MD NAZMUL HAQUE Dhaka Cantonment, Dhaka Cell: 01722823703", "present_address": "Purbo Bach Hati, Ramganj, Sarbananda, Sundarganj, Gaibandha. District: Gaibandha", "permanent_address": "Purbo Bach Hati, Ramganj, Sarbananda, Sundarganj, Gaibandha. District: Gaibandha", "district": "Gaibandha", "ssc_roll": "211619", "ssc_reg_no": "2217656386", "ssc_board": "Dinajpur", "ssc_year": "2025", "ssc_gpa": "5.00", "ssc_session": "2023-2024", "ssc_division": "SSC - Science", "elective_subject": "Biology", "fourth_subject": "Higher Math", "admission_session": "2025-2026", "hall_name": "International Hall", "app_pdf_filename": "#alif-211619-153.pdf", "pay_pdf_filename": "alif-211619-153.pdf", "app_pdf_path": "Application Form/#alif-211619-153.pdf", "pay_pdf_path": "Payment Receipts/alif-211619-153.pdf", "photo_filename": "alif-153.jpg", "district_bn": "গাইবান্ধা", "upazila_district_bn": "পূর্ব বাচহাটি, সুন্দরগঞ্জ, গাইবান্ধা", "excel_path": "Dhaka_College_Students_Full_Info.xlsx", "csv_path": "Dhaka_College_Students_Full_Info.csv", "home_path": "../hall-main/index.html", "students_path": "../hall-main/students.html"}];
+
+    // Theme Switcher
+    const themeBtn = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('dc-hostel-theme') || 'light';
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    }
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('dc-hostel-theme', isDark ? 'dark' : 'light');
+      themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    });
+
+    let currentData = [...STUDENTS_DATA];
+    let sortField = 'sl_no';
+    let sortAsc = true;
+    let currentCategory = 'all';
+    let currentSingleIndex = 0;
+    let chartsInitialized = false;
+
+    // Password Authentication (PIN: 9874)
+    const CORRECT_PIN = '9874';
+
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('dc_portal_authenticated') === 'true';
+      const overlay = document.getElementById('authOverlay');
+      if (isAuth) {
+        overlay.classList.add('unlocked');
+      } else {
+        overlay.classList.remove('unlocked');
+        setTimeout(() => {
+          const pinIn = document.getElementById('pinInput');
+          if (pinIn) pinIn.focus();
+        }, 100);
+      }
+    }
+
+    function submitPin() {
+      const pinInput = document.getElementById('pinInput');
+      const err = document.getElementById('authErrMsg');
+      const val = pinInput.value.trim();
+
+      if (val === CORRECT_PIN) {
+        sessionStorage.setItem('dc_portal_authenticated', 'true');
+        err.style.display = 'none';
+        pinInput.classList.remove('error');
+        document.getElementById('authOverlay').classList.add('unlocked');
+        showToast('🔓 Portal unlocked successfully!');
+      } else {
+        pinInput.classList.add('error');
+        err.textContent = '❌ ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিয়ে আবার চেষ্টা করুন।';
+        err.style.display = 'block';
+        pinInput.value = '';
+        pinInput.focus();
+        setTimeout(() => pinInput.classList.remove('error'), 600);
+      }
+    }
+
+    function lockPortal() {
+      sessionStorage.removeItem('dc_portal_authenticated');
+      const pinInput = document.getElementById('pinInput');
+      if (pinInput) pinInput.value = '';
+      const err = document.getElementById('authErrMsg');
+      if (err) err.style.display = 'none';
+      document.getElementById('authOverlay').classList.remove('unlocked');
+      setTimeout(() => {
+        if (pinInput) pinInput.focus();
+      }, 100);
+      showToast('🔒 Portal locked.');
+    }
+
+    function togglePinVisibility() {
+      const pinInput = document.getElementById('pinInput');
+      const icon = document.getElementById('pwdToggleIcon');
+      if (pinInput.type === 'password') {
+        pinInput.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+      } else {
+        pinInput.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+      }
+    }
+
+    function setMainView(view) {
+      document.getElementById('viewTableSection').style.display = view === 'table' ? 'block' : 'none';
+      document.getElementById('viewSingleSection').style.display = view === 'single' ? 'flex' : 'none';
+      document.getElementById('viewChartsSection').style.display = view === 'charts' ? 'block' : 'none';
+      document.getElementById('viewCardsSection').style.display = view === 'cards' ? 'grid' : 'none';
+
+      document.getElementById('controlPanel').style.display = (view === 'table' || view === 'cards') ? 'block' : 'none';
+
+      document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+      if (view === 'table') document.getElementById('tabTable').classList.add('active');
+      if (view === 'single') {
+        document.getElementById('tabSingle').classList.add('active');
+        renderSingleStudent(currentSingleIndex);
+      }
+      if (view === 'charts') {
+        document.getElementById('tabCharts').classList.add('active');
+        if (!chartsInitialized) {
+          initCharts();
+          chartsInitialized = true;
+        }
+      }
+      if (view === 'cards') document.getElementById('tabCards').classList.add('active');
+    }
+
+    function populateDropdowns() {
+      const distSelect = document.getElementById('filterDistrict');
+      const singlePicker = document.getElementById('singleStudentPicker');
+      
+      const dists = [...new Set(STUDENTS_DATA.map(s => s.district))].filter(Boolean).sort();
+      dists.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d; opt.textContent = d;
+        distSelect.appendChild(opt);
+      });
+
+      singlePicker.innerHTML = '';
+      STUDENTS_DATA.forEach((s, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        const pgText = s.practical_group !== 'N/A' ? ` | PG: ${s.practical_group}` : '';
+        opt.textContent = `Roll ${s.short_roll} - ${s.name_en} (${s.section}${pgText})`;
+        singlePicker.appendChild(opt);
+      });
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      if (currentData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="36" style="text-align:center; padding:40px; color:var(--text-muted);">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:24px; margin-bottom:8px; display:block;"></i>
+          No student found matching your criteria.
+        </td></tr>`;
+        return;
+      }
+
+      currentData.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.onclick = () => {
+          const originalIdx = STUDENTS_DATA.findIndex(x => x.short_roll === s.short_roll);
+          if (originalIdx !== -1) {
+            currentSingleIndex = originalIdx;
+            setMainView('single');
+          }
+        };
+
+        const pgBadge = s.practical_group !== 'N/A' ? `<span class="badge badge-pg">${s.practical_group}</span>` : `<span style="color:var(--text-muted);">-</span>`;
+
+        tr.innerHTML = `
+          <td class="sticky-col col-sl">${s.sl_no}</td>
+          <td class="sticky-col col-photo"><img class="student-thumb" src="${s.photo}" alt="${s.name_en}" onerror="this.src='images/logo.png'"></td>
+          <td class="sticky-col col-name" title="${s.name_en}"><strong>${s.name_en}</strong></td>
+          <td class="sticky-col col-roll"><span class="badge badge-roll">${s.short_roll}</span></td>
+          
+          <td class="col-grp-basic">${s.name_bn || '-'}</td>
+          <td class="col-grp-basic"><span class="badge badge-group">${s.group}</span></td>
+          <td class="col-grp-basic"><strong>${s.section}</strong></td>
+          <td class="col-grp-basic" style="text-align:center;">${pgBadge}</td>
+          <td class="col-grp-basic"><a href="tel:${s.phone}" onclick="event.stopPropagation()" style="color:inherit; text-decoration:none; font-weight:700;"><i class="fa-solid fa-phone" style="font-size:10px; color:var(--primary);"></i> ${s.phone}</a></td>
+          <td class="col-grp-basic">${s.nid}</td>
+          <td class="col-grp-basic">${s.dob}</td>
+          <td class="col-grp-basic"><span class="badge badge-blood">${s.blood_group}</span></td>
+          
+          <td class="col-grp-father">${s.father_name_en}</td>
+          <td class="col-grp-father">${s.father_name_bn}</td>
+          <td class="col-grp-father"><a href="tel:${s.father_phone}" onclick="event.stopPropagation()" style="color:inherit; text-decoration:none;">${s.father_phone}</a></td>
+          <td class="col-grp-father">${s.father_nid}</td>
+          <td class="col-grp-father">${s.father_occ}</td>
+          <td class="col-grp-father" style="font-weight:700; color:#16A34A; text-align:right;">${s.father_monthly_income ? '৳' + s.father_monthly_income.toLocaleString() : '৳0'}</td>
+          <td class="col-grp-father" style="text-align:right;">${s.father_annual_income ? '৳' + s.father_annual_income.toLocaleString() : '৳0'}</td>
+          
+          <td class="col-grp-mother">${s.mother_name_en}</td>
+          <td class="col-grp-mother">${s.mother_name_bn}</td>
+          <td class="col-grp-mother">${s.mother_phone ? `<a href="tel:${s.mother_phone}" onclick="event.stopPropagation()" style="color:inherit; text-decoration:none;">${s.mother_phone}</a>` : '-'}</td>
+          <td class="col-grp-mother">${s.mother_nid || '-'}</td>
+          
+          <td class="col-grp-address">${s.local_guardian || '-'}</td>
+          <td class="col-grp-address"><strong>${s.district}</strong></td>
+          <td class="col-grp-address">${s.present_address}</td>
+          <td class="col-grp-address">${s.permanent_address}</td>
+          
+          <td class="col-grp-academic">${s.ssc_roll}</td>
+          <td class="col-grp-academic">${s.ssc_reg_no}</td>
+          <td class="col-grp-academic">${s.ssc_board}</td>
+          <td class="col-grp-academic" style="font-weight:700; color:#10B981;">${s.ssc_gpa}</td>
+          <td class="col-grp-academic">${s.ssc_year}</td>
+          <td class="col-grp-academic" style="font-weight:600;">${s.elective_subject || '-'}</td>
+          <td class="col-grp-academic" style="font-weight:600;">${s.fourth_subject || '-'}</td>
+          
+          <td class="col-grp-docs">
+            <a href="${s.app_pdf_path}" target="_blank" onclick="event.stopPropagation()" class="btn btn-outline" style="padding:4px 8px; font-size:11px;">
+              <i class="fa-solid fa-file-pdf" style="color:#DC2626;"></i> Form
+            </a>
+          </td>
+          <td class="col-grp-docs">
+            <a href="${s.pay_pdf_path}" target="_blank" onclick="event.stopPropagation()" class="btn btn-outline" style="padding:4px 8px; font-size:11px;">
+              <i class="fa-solid fa-file-invoice" style="color:#0284C7;"></i> Receipt
+            </a>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      applyColumnVisibility();
+    }
+
+    function setColumnCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      applyColumnVisibility();
+    }
+
+    function applyColumnVisibility() {
+      const table = document.getElementById('mainTable');
+      const bCols = table.querySelectorAll('.col-grp-basic');
+      const fCols = table.querySelectorAll('.col-grp-father');
+      const mCols = table.querySelectorAll('.col-grp-mother');
+      const aCols = table.querySelectorAll('.col-grp-address');
+      const acCols = table.querySelectorAll('.col-grp-academic');
+      const dCols = table.querySelectorAll('.col-grp-docs');
+
+      const show = (cols) => cols.forEach(c => c.style.display = '');
+      const hide = (cols) => cols.forEach(c => c.style.display = 'none');
+
+      if (currentCategory === 'all') {
+        show(bCols); show(fCols); show(mCols); show(aCols); show(acCols); show(dCols);
+      } else if (currentCategory === 'basic') {
+        show(bCols); hide(fCols); hide(mCols); hide(aCols); hide(acCols); hide(dCols);
+      } else if (currentCategory === 'father') {
+        hide(bCols); show(fCols); hide(mCols); hide(aCols); hide(acCols); hide(dCols);
+      } else if (currentCategory === 'mother') {
+        hide(bCols); hide(fCols); show(mCols); hide(aCols); hide(acCols); hide(dCols);
+      } else if (currentCategory === 'academic') {
+        hide(bCols); hide(fCols); hide(mCols); hide(aCols); show(acCols); hide(dCols);
+      } else if (currentCategory === 'address') {
+        hide(bCols); hide(fCols); hide(mCols); show(aCols); hide(acCols); hide(dCols);
+      } else if (currentCategory === 'docs') {
+        hide(bCols); hide(fCols); hide(mCols); hide(aCols); hide(acCols); show(dCols);
+      }
+    }
+
+    function renderSingleStudent(index) {
+      currentSingleIndex = index;
+      document.getElementById('singleStudentPicker').value = index;
+      const s = STUDENTS_DATA[index];
+      const pgBadge = s.practical_group !== 'N/A' ? `<span class="badge badge-pg" style="font-size:13px; padding:6px 12px;">Practical: ${s.practical_group}</span>` : '';
+
+      const content = `
+        <div class="dossier-hero">
+          <img class="dossier-avatar" src="${s.photo}" alt="${s.name_en}" onerror="this.src='images/logo.png'">
+          <div class="dossier-hero-info">
+            <h2>${s.name_en}</h2>
+            <div class="dossier-bn-name">${s.name_bn}</div>
+            <div class="dossier-badges">
+              <span class="badge badge-roll" style="font-size:13px; padding:6px 12px;">Roll ${s.short_roll}</span>
+              <span class="badge badge-group" style="font-size:13px; padding:6px 12px;">${s.section}</span>
+              ${pgBadge}
+              <span class="badge badge-blood" style="font-size:13px; padding:6px 12px;">Blood: ${s.blood_group}</span>
+            </div>
+          </div>
+          <div style="margin-left:auto; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="tel:${s.phone}" class="btn btn-sheets" style="font-size:14px; padding:10px 18px;"><i class="fa-solid fa-phone"></i> Call Student</a>
+            <a href="https://wa.me/88${s.phone.replace(/^0/, '')}" target="_blank" class="btn btn-outline" style="background:white; color:#059669; font-size:14px;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="dossier-body">
+          
+          <div class="info-card-box">
+            <div class="info-card-title blue"><i class="fa-solid fa-user"></i> Student Identity & Academic Profile</div>
+            <div class="info-grid-2col">
+              <div class="info-item"><span class="info-item-lbl">College Roll (Full)</span><span class="info-item-val" style="font-family:monospace;">${s.full_class_roll}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Short Roll</span><span class="info-item-val">${s.short_roll}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Stream & Class</span><span class="info-item-val">${s.group} (XI)</span></div>
+              <div class="info-item"><span class="info-item-lbl">Section</span><span class="info-item-val">${s.section}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Practical Group</span><span class="info-item-val" style="color:#7E22CE;">${s.practical_group}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Student Phone</span><span class="info-item-val">${s.phone}</span></div>
+              <div class="info-item"><span class="info-item-lbl">NID / Birth Reg</span><span class="info-item-val">${s.nid}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Date of Birth</span><span class="info-item-val">${s.dob}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Religion / Gender</span><span class="info-item-val">${s.religion} &bull; ${s.gender}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Email</span><span class="info-item-val">${s.email || '-'}</span></div>
+            </div>
+          </div>
+
+          <div class="info-card-box">
+            <div class="info-card-title indigo"><i class="fa-solid fa-user-tie"></i> Father's Information & Income</div>
+            <div class="info-grid-2col">
+              <div class="info-item"><span class="info-item-lbl">Father's Name (EN)</span><span class="info-item-val">${s.father_name_en}</span></div>
+              <div class="info-item"><span class="info-item-lbl">পিতার নাম (বাংলা)</span><span class="info-item-val">${s.father_name_bn}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Father's Phone</span><span class="info-item-val"><a href="tel:${s.father_phone}" style="color:inherit; text-decoration:none;"><i class="fa-solid fa-phone" style="font-size:11px; color:#4F46E5;"></i> ${s.father_phone}</a></span></div>
+              <div class="info-item"><span class="info-item-lbl">Father's NID</span><span class="info-item-val">${s.father_nid}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Occupation</span><span class="info-item-val">${s.father_occ || '-'}</span></div>
+              <div class="info-item">
+                <span class="info-item-lbl">মাসিক আয় (Monthly Income)</span>
+                <span class="info-item-val" style="color:#16A34A; font-size:15px;">৳${s.father_monthly_income ? s.father_monthly_income.toLocaleString() : '0'}</span>
+              </div>
+              <div class="info-item" style="grid-column: 1 / -1;">
+                <span class="info-item-lbl">বার্ষিক আয় (Yearly Income)</span>
+                <span class="income-pill"><i class="fa-solid fa-money-bill"></i> ৳${s.father_annual_income ? s.father_annual_income.toLocaleString() : '0'} BDT / Year</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card-box">
+            <div class="info-card-title purple"><i class="fa-solid fa-person-dress"></i> Mother's Information</div>
+            <div class="info-grid-2col">
+              <div class="info-item"><span class="info-item-lbl">Mother's Name (EN)</span><span class="info-item-val">${s.mother_name_en}</span></div>
+              <div class="info-item"><span class="info-item-lbl">মাতার নাম (বাংলা)</span><span class="info-item-val">${s.mother_name_bn}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Mother's Phone</span><span class="info-item-val">${s.mother_phone ? `<a href="tel:${s.mother_phone}" style="color:inherit; text-decoration:none;"><i class="fa-solid fa-phone" style="font-size:11px; color:#9333EA;"></i> ${s.mother_phone}</a>` : '<span style="color:var(--text-muted); font-weight:400; font-style:italic;">Not provided</span>'}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Mother's NID</span><span class="info-item-val">${s.mother_nid || '-'}</span></div>
+            </div>
+          </div>
+
+          <div class="info-card-box">
+            <div class="info-card-title amber"><i class="fa-solid fa-book-bookmark"></i> SSC Academic & Subjects</div>
+            <div class="info-grid-2col">
+              <div class="info-item"><span class="info-item-lbl">SSC Exam Roll</span><span class="info-item-val">${s.ssc_roll}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Registration No</span><span class="info-item-val">${s.ssc_reg_no}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Education Board</span><span class="info-item-val">${s.ssc_board} Board (${s.ssc_year})</span></div>
+              <div class="info-item"><span class="info-item-lbl">SSC Result</span><span class="info-item-val" style="color:#10B981; font-size:15px;">GPA ${s.ssc_gpa}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Elective Subject</span><span class="info-item-val" style="color:#D97706;">${s.elective_subject || '-'}</span></div>
+              <div class="info-item"><span class="info-item-lbl">4th Subject (Optional)</span><span class="info-item-val" style="color:#0284C7;">${s.fourth_subject || '-'}</span></div>
+            </div>
+          </div>
+
+          <div class="info-card-box">
+            <div class="info-card-title emerald"><i class="fa-solid fa-location-dot"></i> Addresses & Local Guardian</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="info-item"><span class="info-item-lbl">Home District</span><span class="info-item-val">${s.district}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Permanent Address</span><span class="info-item-val">${s.permanent_address}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Present Address</span><span class="info-item-val">${s.present_address}</span></div>
+              <div class="info-item"><span class="info-item-lbl">Local Guardian</span><span class="info-item-val">${s.local_guardian || '-'}</span></div>
+            </div>
+          </div>
+
+          <div class="info-card-box">
+            <div class="info-card-title" style="color:#E11D48;"><i class="fa-solid fa-file-contract"></i> Official Documents & Admission Form</div>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Original high-resolution PDF documents from Dhaka College:</p>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <a href="${s.app_pdf_path}" target="_blank" class="doc-action-btn">
+                <i class="fa-solid fa-file-pdf" style="color:#DC2626; font-size:18px;"></i>
+                <div>
+                  <div>Open Admission Application Form PDF</div>
+                  <div style="font-size:11px; color:var(--text-muted); font-weight:400;">${s.app_pdf_filename}</div>
+                </div>
+              </a>
+              <a href="${s.pay_pdf_path}" target="_blank" class="doc-action-btn">
+                <i class="fa-solid fa-file-invoice" style="color:#0284C7; font-size:18px;"></i>
+                <div>
+                  <div>Open Fee Payment Receipt PDF</div>
+                  <div style="font-size:11px; color:var(--text-muted); font-weight:400;">${s.pay_pdf_filename}</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      `;
+
+      document.getElementById('singleDossierContent').innerHTML = content;
+    }
+
+    function selectSingleStudent(idx) {
+      renderSingleStudent(Number(idx));
+    }
+
+    function navigateSingleStudent(delta) {
+      let newIdx = currentSingleIndex + delta;
+      if (newIdx < 0) newIdx = STUDENTS_DATA.length - 1;
+      if (newIdx >= STUDENTS_DATA.length) newIdx = 0;
+      renderSingleStudent(newIdx);
+    }
+
+    // Render Charts (Pure CSS + SVG fallback, 100% offline safe)
+    function initCharts() {
+      // 1. Sections and practical groups
+      const pgs = {};
+      STUDENTS_DATA.forEach(s => {
+        if (s.group_category === 'Science') {
+          const key = `${s.section} (${s.practical_group})`;
+          pgs[key] = (pgs[key] || 0) + 1;
+        }
+      });
+      renderCssBarChart('chartSectionsContainer', pgs, '#0284C7');
+
+      // 2. Blood Groups
+      const bgs = {};
+      STUDENTS_DATA.forEach(s => { bgs[s.blood_group] = (bgs[s.blood_group] || 0) + 1; });
+      renderCssBarChart('chartBloodContainer', bgs, '#DC2626');
+
+      // 3. Districts
+      const dists = {};
+      STUDENTS_DATA.forEach(s => { if(s.district) dists[s.district] = (dists[s.district] || 0) + 1; });
+      renderCssBarChart('chartDistrictsContainer', dists, '#10B981');
+
+      // 4. Monthly Income
+      const incomeBrackets = { '৳0 - ৳5,000': 0, '৳5,001 - ৳15,000': 0, '৳15,001 - ৳30,000': 0, '৳30,000+': 0 };
+      STUDENTS_DATA.forEach(s => {
+        const m = s.father_monthly_income || 0;
+        if (m <= 5000) incomeBrackets['৳0 - ৳5,000']++;
+        else if (m <= 15000) incomeBrackets['৳5,001 - ৳15,000']++;
+        else if (m <= 30000) incomeBrackets['৳15,001 - ৳30,000']++;
+        else incomeBrackets['৳30,000+']++;
+      });
+      renderCssBarChart('chartIncomeContainer', incomeBrackets, '#D97706');
+    }
+
+    function renderCssBarChart(containerId, dataObj, color) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const maxVal = Math.max(...Object.values(dataObj), 1);
+      
+      let html = '<div style="display:flex; flex-direction:column; gap:8px; padding:10px 0; overflow-y:auto; max-height:240px;">';
+      for (const [lbl, count] of Object.entries(dataObj)) {
+        const pct = Math.round((count / maxVal) * 100);
+        html += `
+          <div class="css-bar-row">
+            <span class="css-bar-lbl" title="${lbl}">${lbl}</span>
+            <div class="css-bar-outer">
+              <div class="css-bar-inner" style="width:${Math.max(pct, 12)}%; background:${color};">${count}</div>
+            </div>
+          </div>
+        `;
+      }
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function renderCards() {
+      const container = document.getElementById('viewCardsSection');
+      container.innerHTML = '';
+
+      if (currentData.length === 0) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:60px; color:var(--text-muted);">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:32px; margin-bottom:12px; display:block;"></i>
+          No student found matching your criteria.
+        </div>`;
+        return;
+      }
+
+      currentData.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'student-card';
+        card.onclick = () => {
+          const originalIdx = STUDENTS_DATA.findIndex(x => x.short_roll === s.short_roll);
+          if (originalIdx !== -1) {
+            currentSingleIndex = originalIdx;
+            setMainView('single');
+          }
+        };
+
+        const pgBadge = s.practical_group !== 'N/A' ? `<span class="badge badge-pg">${s.practical_group}</span>` : '';
+
+        card.innerHTML = `
+          <div class="card-top">
+            <img class="card-avatar" src="${s.photo}" alt="${s.name_en}" onerror="this.src='images/logo.png'">
+            <div class="card-header-info">
+              <h3>${s.name_en}</h3>
+              <div class="name-bn">${s.name_bn}</div>
+              <div class="card-badges">
+                <span class="badge badge-roll">Roll ${s.short_roll}</span>
+                <span class="badge badge-group">${s.section}</span>
+                ${pgBadge}
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-row">
+              <span class="card-label">Mobile:</span>
+              <span class="card-value"><a href="tel:${s.phone}" onclick="event.stopPropagation()" style="color:inherit; text-decoration:none;"><i class="fa-solid fa-phone" style="font-size:11px; color:var(--primary);"></i> ${s.phone}</a></span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Section:</span>
+              <span class="card-value">${s.section}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">District:</span>
+              <span class="card-value">${s.district}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Father Monthly:</span>
+              <span class="card-value" style="color:#16A34A;">৳${s.father_monthly_income ? s.father_monthly_income.toLocaleString() : '0'}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">4th Subject:</span>
+              <span class="card-value">${s.fourth_subject || '-'}</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-outline" style="padding:5px 10px; font-size:12px;">
+              <i class="fa-solid fa-id-card"></i> View Profile
+            </button>
+            <a href="tel:${s.phone}" class="btn btn-sheets" onclick="event.stopPropagation()" style="padding:5px 10px; font-size:12px;">
+              <i class="fa-solid fa-phone"></i> Call
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      document.getElementById('clearSearchBtn').style.display = 'none';
+      applyFilters();
+      input.focus();
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const g = document.getElementById('filterGroup').value;
+      const sec = document.getElementById('filterSection').value;
+      const pg = document.getElementById('filterPractical').value;
+      const b = document.getElementById('filterBlood').value;
+      const dist = document.getElementById('filterDistrict').value;
+
+      document.getElementById('clearSearchBtn').style.display = q ? 'block' : 'none';
+
+      currentData = STUDENTS_DATA.filter(s => {
+        if (g && s.group_category !== g) return false;
+        if (sec && s.section !== sec) return false;
+        if (pg && s.practical_group !== pg) return false;
+        if (b && s.blood_group !== b) return false;
+        if (dist && s.district !== dist) return false;
+
+        if (q) {
+          const hay = [
+            s.name_en, s.name_bn, s.short_roll, s.full_class_roll, s.admission_roll,
+            s.phone, s.nid, s.district, s.permanent_address, s.present_address,
+            s.father_name_en, s.father_name_bn, s.father_phone, s.father_nid, s.father_occ,
+            s.mother_name_en, s.mother_name_bn, s.mother_phone, s.mother_nid,
+            s.local_guardian, s.ssc_roll, s.ssc_reg_no, s.ssc_board, s.blood_group,
+            s.section, s.practical_group, s.elective_subject, s.fourth_subject
+          ].join(' ').toLowerCase();
+
+          if (!hay.includes(q)) return false;
+        }
+
+        return true;
+      });
+
+      renderTable();
+      renderCards();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+    function sortTable(field) {
+      if (sortField === field) sortAsc = !sortAsc;
+      else { sortField = field; sortAsc = true; }
+
+      currentData.sort((a, b) => {
+        let va = a[field] || '';
+        let vb = b[field] || '';
+
+        if (!isNaN(va) && !isNaN(vb) && va !== '' && vb !== '') {
+          va = Number(va); vb = Number(vb);
+        } else {
+          va = va.toString().toLowerCase();
+          vb = vb.toString().toLowerCase();
+        }
+
+        if (va < vb) return sortAsc ? -1 : 1;
+        if (va > vb) return sortAsc ? 1 : -1;
+        return 0;
+      });
+
+      renderTable();
+      renderCards();
+    }
+
+    function copyForGoogleSheets() {
+      const headers = [
+        "Sl", "Roll (Short)", "Roll (Full)", "Name (English)", "Name (Bangla)",
+        "Academic Group", "Section", "Practical Group (Science)", "Student Mobile", "Student NID",
+        "Birth Date", "Blood Group", "Gender", "Religion", "Student Email",
+        "Father Name (EN)", "Father Name (BN)", "Father Mobile", "Father NID", "Father Occupation",
+        "Father Monthly Income (BDT)", "Father Annual Income (BDT)",
+        "Mother Name (EN)", "Mother Name (BN)", "Mother Mobile", "Mother NID",
+        "Local Guardian", "District", "Present Address", "Permanent Address",
+        "SSC Roll", "SSC Reg No", "SSC Board", "SSC Passing Year", "SSC GPA",
+        "Elective Subject", "4th Subject (Optional)", "Application Form PDF", "Payment Receipt PDF"
+      ];
+
+      let tsv = headers.join('\t') + '\n';
+
+      STUDENTS_DATA.forEach(s => {
+        const row = [
+          s.sl_no, s.short_roll, s.full_class_roll, s.name_en, s.name_bn,
+          s.group, s.section, s.practical_group, s.phone, s.nid,
+          s.dob, s.blood_group, s.gender, s.religion, s.email,
+          s.father_name_en, s.father_name_bn, s.father_phone, s.father_nid, s.father_occ,
+          s.father_monthly_income, s.father_annual_income,
+          s.mother_name_en, s.mother_name_bn, s.mother_phone, s.mother_nid,
+          s.local_guardian, s.district, s.present_address, s.permanent_address,
+          s.ssc_roll, s.ssc_reg_no, s.ssc_board, s.ssc_year, s.ssc_gpa,
+          s.elective_subject, s.fourth_subject, s.app_pdf_filename, s.pay_pdf_filename
+        ];
+        tsv += row.map(v => (v ?? '').toString().replace(/\t/g, ' ').replace(/\n/g, ' ')).join('\t') + '\n';
+      });
+
+      navigator.clipboard.writeText(tsv).then(() => {
+        showToast('📋 All 28 students data copied to clipboard! Paste into Google Sheets (Ctrl+V).');
+      }).catch(err => {
+        showToast('Error copying to clipboard: ' + err);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    populateDropdowns();
+    renderTable();
+    renderCards();
+    checkAuth();
+
+    const pinInputField = document.getElementById('pinInput');
+    if (pinInputField) {
+      pinInputField.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submitPin();
+        }
+      });
+    }
+
+    // Scroll-to-top button visibility
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollTopBtn');
+      if (window.scrollY > 300) {
+        btn.style.display = 'flex';
+      } else {
+        btn.style.display = 'none';
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Ctrl+K or / to focus search
+      if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+        e.preventDefault();
+        document.getElementById('searchInput').focus();
+      }
+      // Escape to clear search
+      if (e.key === 'Escape') {
+        const searchInput = document.getElementById('searchInput');
+        if (document.activeElement === searchInput) {
+          searchInput.value = '';
+          applyFilters();
+          searchInput.blur();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
